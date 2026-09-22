@@ -527,7 +527,6 @@ footer {
 
 </section>
 
-
 <!-- QUIZ -->
 
 <section id="quiz">
@@ -541,50 +540,275 @@ footer {
     </h2>
 
     <p class="description">
-        Test your knowledge of medical imaging.
+        Identify the medical imaging technology based
+        on its physical principle or clinical use.
     </p>
-
 
     <div class="quiz">
 
-        <div class="question">
-            Which modality uses a strong magnetic field
-            and radio waves?
+        <div class="quiz-top">
+            <span id="questionNumber">Question 1 / 5</span>
+            <span id="score">Score: 0</span>
         </div>
 
-        <div class="quiz-image">
-            🧲
+        <div class="quiz-image" id="quizIcon">
+            🩻
         </div>
 
-
-        <div class="options">
-
-            <button class="option" onclick="checkAnswer('X-Ray')">
-                X-Ray
-            </button>
-
-            <button class="option" onclick="checkAnswer('CT')">
-                CT
-            </button>
-
-            <button class="option" onclick="checkAnswer('MRI')">
-                MRI
-            </button>
-
-            <button class="option" onclick="checkAnswer('Ultrasound')">
-                Ultrasound
-            </button>
-
+        <div class="question" id="question">
+            Which modality uses X-rays to create an image?
         </div>
+
+        <div class="options" id="options"></div>
 
         <div class="result" id="result"></div>
+
+        <button
+            class="btn"
+            id="nextButton"
+            onclick="nextQuestion()"
+            style="display:none; background:transparent; cursor:pointer;">
+            Next Question →
+        </button>
 
     </div>
 
 </section>
 
 
-<!-- ABOUT -->
+<script>
+
+const questions = [
+
+    {
+        icon: "🩻",
+        question:
+        "Which modality uses X-rays to create a projection image?",
+        options:
+        ["MRI", "X-Ray", "Ultrasound", "PET"],
+        answer:
+        "X-Ray"
+    },
+
+    {
+        icon: "🧠",
+        question:
+        "Which modality creates cross-sectional images using X-rays and computer processing?",
+        options:
+        ["CT", "MRI", "Ultrasound", "X-Ray"],
+        answer:
+        "CT"
+    },
+
+    {
+        icon: "🧲",
+        question:
+        "Which modality uses a strong magnetic field and radio waves?",
+        options:
+        ["CT", "X-Ray", "MRI", "Ultrasound"],
+        answer:
+        "MRI"
+    },
+
+    {
+        icon: "🩺",
+        question:
+        "Which modality uses high-frequency sound waves?",
+        options:
+        ["MRI", "CT", "X-Ray", "Ultrasound"],
+        answer:
+        "Ultrasound"
+    },
+
+    {
+        icon: "🔬",
+        question:
+        "Which modality is commonly useful for real-time imaging?",
+        options:
+        ["Ultrasound", "CT", "X-Ray", "MRI"],
+        answer:
+        "Ultrasound"
+    }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+function loadQuestion() {
+
+    answered = false;
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber").textContent =
+        "Question " + (currentQuestion + 1) + " / " + questions.length;
+
+    document.getElementById("score").textContent =
+        "Score: " + score;
+
+    document.getElementById("quizIcon").textContent =
+        q.icon;
+
+    document.getElementById("question").textContent =
+        q.question;
+
+    document.getElementById("result").textContent = "";
+
+    document.getElementById("nextButton").style.display =
+        "none";
+
+    const options =
+        document.getElementById("options");
+
+    options.innerHTML = "";
+
+    q.options.forEach(function(option) {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "option";
+
+        button.textContent = option;
+
+        button.onclick = function() {
+            checkAnswer(option, button);
+        };
+
+        options.appendChild(button);
+
+    });
+
+}
+
+
+function checkAnswer(answer, button) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const result =
+        document.getElementById("result");
+
+    if (answer === questions[currentQuestion].answer) {
+
+        score++;
+
+        result.textContent =
+            "✓ Correct!";
+
+        result.style.color =
+            "#62e6c5";
+
+    } else {
+
+        result.textContent =
+            "✕ Incorrect. Correct answer: " +
+            questions[currentQuestion].answer;
+
+        result.style.color =
+            "#ff8a8a";
+
+    }
+
+    document.getElementById("score").textContent =
+        "Score: " + score;
+
+    document.getElementById("nextButton").style.display =
+        "inline-block";
+
+}
+
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    if (currentQuestion >= questions.length) {
+
+        showFinalScore();
+
+        return;
+
+    }
+
+    loadQuestion();
+
+}
+
+
+function showFinalScore() {
+
+    const quiz =
+        document.querySelector(".quiz");
+
+    let message = "";
+
+    if (score === 5) {
+
+        message =
+            "Excellent! You mastered the basics of medical imaging.";
+
+    } else if (score >= 3) {
+
+        message =
+            "Good job! You have a solid understanding of the basics.";
+
+    } else {
+
+        message =
+            "Keep learning! Explore the modalities above and try again.";
+
+    }
+
+    quiz.innerHTML = `
+
+        <div class="quiz-image">
+            🧬
+        </div>
+
+        <div class="question">
+            Quiz Complete
+        </div>
+
+        <div style="font-size:40px;color:#62e6c5;margin:20px;">
+            ${score} / ${questions.length}
+        </div>
+
+        <p style="color:#98a4ad;">
+            ${message}
+        </p>
+
+        <button
+            class="btn"
+            onclick="restartQuiz()"
+            style="background:transparent;cursor:pointer;">
+            Try Again
+        </button>
+
+    `;
+
+}
+
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+    score = 0;
+
+    location.reload();
+
+}
+
+
+loadQuestion();
+
+</script>
 
 <section>
 
