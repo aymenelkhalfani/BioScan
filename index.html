@@ -7,6 +7,7 @@
 <title>BioScan | Medical Imaging Explorer</title>
 
 <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -24,17 +25,22 @@ body {
     line-height: 1.6;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 
 nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     padding: 16px 7%;
-    background: rgba(8,13,18,0.94);
+
+    background: rgba(8,13,18,0.95);
+    backdrop-filter: blur(10px);
+
     border-bottom: 1px solid #1e2a33;
 }
 
@@ -55,15 +61,19 @@ nav a:hover {
     color: #62e6c5;
 }
 
-/* HERO */
+/* ================= HERO ================= */
 
 .hero {
     min-height: 88vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     text-align: center;
+
     padding: 70px 20px;
+
     background:
         radial-gradient(circle at center, #163d46 0%, #080d12 58%);
 }
@@ -98,12 +108,20 @@ nav a:hover {
 
 .btn {
     display: inline-block;
+
     margin-top: 15px;
     padding: 13px 27px;
+
     border: 1px solid #62e6c5;
     border-radius: 30px;
+
     color: #62e6c5;
+    background: transparent;
+
     text-decoration: none;
+    cursor: pointer;
+
+    transition: 0.3s;
 }
 
 .btn:hover {
@@ -111,7 +129,7 @@ nav a:hover {
     color: #081014;
 }
 
-/* SECTIONS */
+/* ================= SECTIONS ================= */
 
 section {
     max-width: 1100px;
@@ -137,35 +155,63 @@ section {
     margin-bottom: 40px;
 }
 
-/* MODALITY CARDS */
+/* ================= MODALITY CARDS ================= */
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(230px, 1fr));
+
     gap: 20px;
 }
 
 .card {
     background: #0e151c;
+
     border: 1px solid #202d36;
     border-radius: 18px;
-    padding: 28px;
-    transition: 0.3s;
+
+    overflow: hidden;
+
+    transition: 0.35s;
 }
 
 .card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-7px);
     border-color: #62e6c5;
 }
 
-.icon {
-    font-size: 40px;
-    margin-bottom: 18px;
+/* IMAGE */
+
+.card-image {
+    width: 100%;
+    height: 190px;
+
+    object-fit: cover;
+
+    display: block;
+
+    filter: brightness(0.82);
+
+    transition: 0.35s;
+}
+
+.card:hover .card-image {
+    filter: brightness(1);
+    transform: scale(1.03);
+}
+
+/* CARD CONTENT */
+
+.card-content {
+    padding: 25px;
 }
 
 .card h3 {
     color: #62e6c5;
     margin-bottom: 10px;
+    font-size: 22px;
 }
 
 .card p {
@@ -175,15 +221,19 @@ section {
 
 .badge {
     display: inline-block;
+
     margin-top: 18px;
     padding: 5px 10px;
+
     border-radius: 15px;
+
     background: #16242b;
     color: #62e6c5;
+
     font-size: 11px;
 }
 
-/* COMPARISON */
+/* ================= COMPARISON ================= */
 
 .table-container {
     overflow-x: auto;
@@ -192,8 +242,11 @@ section {
 table {
     width: 100%;
     border-collapse: collapse;
+
     min-width: 650px;
+
     background: #0e151c;
+
     border-radius: 15px;
     overflow: hidden;
 }
@@ -202,6 +255,7 @@ th,
 td {
     padding: 16px;
     text-align: left;
+
     border-bottom: 1px solid #202d36;
 }
 
@@ -214,14 +268,28 @@ td {
     color: #aeb8c0;
 }
 
-/* QUIZ */
+/* ================= QUIZ ================= */
 
 .quiz {
     background: #0e151c;
+
     border: 1px solid #202d36;
     border-radius: 20px;
+
     padding: 30px;
+
     text-align: center;
+}
+
+.quiz-top {
+    display: flex;
+    justify-content: space-between;
+
+    color: #89959e;
+
+    font-size: 13px;
+
+    margin-bottom: 25px;
 }
 
 .question {
@@ -233,54 +301,78 @@ td {
     width: 100%;
     max-width: 420px;
     height: 220px;
+
     margin: 0 auto 25px;
+
     border-radius: 15px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     background: #111b22;
+
     border: 1px solid #293740;
+
     font-size: 60px;
 }
 
 .options {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 12px;
+
     max-width: 500px;
+
     margin: auto;
 }
 
 .option {
     padding: 13px;
+
     border: 1px solid #35434c;
+
     background: #101820;
+
     color: white;
+
     border-radius: 10px;
+
     cursor: pointer;
+
+    transition: 0.25s;
 }
 
 .option:hover {
     border-color: #62e6c5;
+    transform: translateY(-2px);
 }
 
 .result {
     margin-top: 20px;
+
     font-weight: bold;
+
     min-height: 25px;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 footer {
     text-align: center;
+
     padding: 35px 20px;
+
     border-top: 1px solid #202a32;
+
     color: #69757e;
+
     font-size: 13px;
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media (max-width: 650px) {
 
@@ -307,26 +399,47 @@ footer {
     .hero h1 {
         letter-spacing: -3px;
     }
+
+    .card-image {
+        height: 210px;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- NAVIGATION -->
+
+<!-- ================= NAVIGATION ================= -->
 
 <nav>
-    <div class="logo">BIOSCAN</div>
+
+    <div class="logo">
+        BIOSCAN
+    </div>
 
     <div>
-        <a href="#modalities">Modalities</a>
-        <a href="#comparison">Compare</a>
-        <a href="#quiz">Quiz</a>
+
+        <a href="#modalities">
+            Modalities
+        </a>
+
+        <a href="#comparison">
+            Compare
+        </a>
+
+        <a href="#quiz">
+            Quiz
+        </a>
+
     </div>
+
 </nav>
 
 
-<!-- HERO -->
+<!-- ================= HERO ================= -->
 
 <header class="hero">
 
@@ -336,17 +449,24 @@ footer {
             BIOMEDICAL ENGINEERING
         </div>
 
-        <h1>BioScan</h1>
+        <h1>
+            BioScan
+        </h1>
 
-        <h2>Medical Imaging Explorer</h2>
+        <h2>
+            Medical Imaging Explorer
+        </h2>
 
         <p>
             Discover how X-Ray, CT, MRI and Ultrasound
-            create images that help healthcare professionals
-            understand the human body.
+            use different physical principles to create
+            medical images.
         </p>
 
-        <a href="#modalities" class="btn">
+        <a
+            href="#modalities"
+            class="btn"
+        >
             Explore Modalities
         </a>
 
@@ -355,7 +475,7 @@ footer {
 </header>
 
 
-<!-- MODALITIES -->
+<!-- ================= MODALITIES ================= -->
 
 <section id="modalities">
 
@@ -368,31 +488,42 @@ footer {
     </h2>
 
     <p class="description">
-        Each medical imaging modality uses a different
-        physical principle to produce information about
-        the human body.
+        Explore four major medical imaging technologies
+        and understand the physical principles behind them.
     </p>
 
 
     <div class="cards">
 
+
         <!-- X-RAY -->
 
         <div class="card">
 
-            <div class="icon">🩻</div>
+            <img
+                src="images/xray.jpg"
+                alt="X-Ray medical image"
+                class="card-image"
+            >
 
-            <h3>X-Ray</h3>
+            <div class="card-content">
 
-            <p>
-                X-Ray imaging uses ionizing radiation to
-                produce images of internal structures.
-                It is commonly used for bones and chest imaging.
-            </p>
+                <h3>
+                    X-Ray
+                </h3>
 
-            <span class="badge">
-                Ionizing Radiation
-            </span>
+                <p>
+                    X-Ray imaging uses ionizing radiation
+                    to create projection images of internal
+                    structures. It is widely used for bones
+                    and chest imaging.
+                </p>
+
+                <span class="badge">
+                    Ionizing Radiation
+                </span>
+
+            </div>
 
         </div>
 
@@ -401,19 +532,29 @@ footer {
 
         <div class="card">
 
-            <div class="icon">🧠</div>
+            <img
+                src="images/ct.jpg"
+                alt="CT scan medical image"
+                class="card-image"
+            >
 
-            <h3>CT Scan</h3>
+            <div class="card-content">
 
-            <p>
-                Computed Tomography combines multiple
-                X-Ray measurements to create detailed
-                cross-sectional images.
-            </p>
+                <h3>
+                    CT Scan
+                </h3>
 
-            <span class="badge">
-                X-Ray + Computing
-            </span>
+                <p>
+                    Computed Tomography combines multiple
+                    X-Ray measurements with computer
+                    processing to create cross-sectional images.
+                </p>
+
+                <span class="badge">
+                    X-Ray + Computing
+                </span>
+
+            </div>
 
         </div>
 
@@ -422,19 +563,29 @@ footer {
 
         <div class="card">
 
-            <div class="icon">🧲</div>
+            <img
+                src="images/mri.jpg"
+                alt="MRI medical image"
+                class="card-image"
+            >
 
-            <h3>MRI</h3>
+            <div class="card-content">
 
-            <p>
-                Magnetic Resonance Imaging uses a strong
-                magnetic field and radio waves to create
-                detailed images of soft tissues.
-            </p>
+                <h3>
+                    MRI
+                </h3>
 
-            <span class="badge">
-                Magnetic Field
-            </span>
+                <p>
+                    Magnetic Resonance Imaging uses a strong
+                    magnetic field and radio waves to produce
+                    detailed images, especially of soft tissues.
+                </p>
+
+                <span class="badge">
+                    Magnetic Field
+                </span>
+
+            </div>
 
         </div>
 
@@ -443,28 +594,39 @@ footer {
 
         <div class="card">
 
-            <div class="icon">🩺</div>
+            <img
+                src="images/ultrasound.jpg"
+                alt="Ultrasound medical image"
+                class="card-image"
+            >
 
-            <h3>Ultrasound</h3>
+            <div class="card-content">
 
-            <p>
-                Ultrasound uses high-frequency sound waves
-                to create real-time images of structures
-                inside the body.
-            </p>
+                <h3>
+                    Ultrasound
+                </h3>
 
-            <span class="badge">
-                Sound Waves
-            </span>
+                <p>
+                    Ultrasound uses high-frequency sound waves
+                    to create images and can provide real-time
+                    visualization of moving structures.
+                </p>
+
+                <span class="badge">
+                    Sound Waves
+                </span>
+
+            </div>
 
         </div>
+
 
     </div>
 
 </section>
 
 
-<!-- COMPARISON -->
+<!-- ================= COMPARISON ================= -->
 
 <section id="comparison">
 
@@ -487,38 +649,107 @@ footer {
         <table>
 
             <tr>
-                <th>Technology</th>
-                <th>Principle</th>
-                <th>Radiation</th>
-                <th>Main Strength</th>
+
+                <th>
+                    Technology
+                </th>
+
+                <th>
+                    Principle
+                </th>
+
+                <th>
+                    Radiation
+                </th>
+
+                <th>
+                    Main Strength
+                </th>
+
             </tr>
 
-            <tr>
-                <td>X-Ray</td>
-                <td>X-Rays</td>
-                <td>Yes</td>
-                <td>Bones / Chest</td>
-            </tr>
 
             <tr>
-                <td>CT</td>
-                <td>X-Rays + Computing</td>
-                <td>Yes</td>
-                <td>Cross-sectional detail</td>
+
+                <td>
+                    X-Ray
+                </td>
+
+                <td>
+                    X-Rays
+                </td>
+
+                <td>
+                    Yes
+                </td>
+
+                <td>
+                    Bones / Chest
+                </td>
+
             </tr>
 
-            <tr>
-                <td>MRI</td>
-                <td>Magnetic field + RF</td>
-                <td>No ionizing radiation</td>
-                <td>Soft tissues</td>
-            </tr>
 
             <tr>
-                <td>Ultrasound</td>
-                <td>Sound waves</td>
-                <td>No ionizing radiation</td>
-                <td>Real-time imaging</td>
+
+                <td>
+                    CT
+                </td>
+
+                <td>
+                    X-Rays + Computing
+                </td>
+
+                <td>
+                    Yes
+                </td>
+
+                <td>
+                    Cross-sectional detail
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    MRI
+                </td>
+
+                <td>
+                    Magnetic field + RF
+                </td>
+
+                <td>
+                    No ionizing radiation
+                </td>
+
+                <td>
+                    Soft tissues
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Ultrasound
+                </td>
+
+                <td>
+                    Sound waves
+                </td>
+
+                <td>
+                    No ionizing radiation
+                </td>
+
+                <td>
+                    Real-time imaging
+                </td>
+
             </tr>
 
         </table>
@@ -527,7 +758,8 @@ footer {
 
 </section>
 
-<!-- QUIZ -->
+
+<!-- ================= QUIZ ================= -->
 
 <section id="quiz">
 
@@ -541,40 +773,80 @@ footer {
 
     <p class="description">
         Identify the medical imaging technology based
-        on its physical principle or clinical use.
+        on its physical principle or common application.
     </p>
+
 
     <div class="quiz">
 
+
         <div class="quiz-top">
-            <span id="questionNumber">Question 1 / 5</span>
-            <span id="score">Score: 0</span>
+
+            <span id="questionNumber">
+                Question 1 / 5
+            </span>
+
+            <span id="score">
+                Score: 0
+            </span>
+
         </div>
 
-        <div class="quiz-image" id="quizIcon">
+
+        <div
+            class="quiz-image"
+            id="quizIcon"
+        >
             🩻
         </div>
 
-        <div class="question" id="question">
-            Which modality uses X-rays to create an image?
+
+        <div
+            class="question"
+            id="question"
+        >
+            Which modality uses X-rays to create
+            a projection image?
         </div>
 
-        <div class="options" id="options"></div>
 
-        <div class="result" id="result"></div>
+        <div
+            class="options"
+            id="options"
+        ></div>
+
+
+        <div
+            class="result"
+            id="result"
+        ></div>
+
 
         <button
             class="btn"
             id="nextButton"
             onclick="nextQuestion()"
-            style="display:none; background:transparent; cursor:pointer;">
+            style="display:none;"
+        >
             Next Question →
         </button>
+
 
     </div>
 
 </section>
 
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    BioScan © 2026 — Biomedical Engineering Project
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
 
 <script>
 
@@ -582,50 +854,94 @@ const questions = [
 
     {
         icon: "🩻",
+
         question:
         "Which modality uses X-rays to create a projection image?",
+
         options:
-        ["MRI", "X-Ray", "Ultrasound", "PET"],
+        [
+            "MRI",
+            "X-Ray",
+            "Ultrasound",
+            "PET"
+        ],
+
         answer:
         "X-Ray"
     },
 
+
     {
         icon: "🧠",
+
         question:
         "Which modality creates cross-sectional images using X-rays and computer processing?",
+
         options:
-        ["CT", "MRI", "Ultrasound", "X-Ray"],
+        [
+            "CT",
+            "MRI",
+            "Ultrasound",
+            "X-Ray"
+        ],
+
         answer:
         "CT"
     },
 
+
     {
         icon: "🧲",
+
         question:
         "Which modality uses a strong magnetic field and radio waves?",
+
         options:
-        ["CT", "X-Ray", "MRI", "Ultrasound"],
+        [
+            "CT",
+            "X-Ray",
+            "MRI",
+            "Ultrasound"
+        ],
+
         answer:
         "MRI"
     },
 
+
     {
         icon: "🩺",
+
         question:
         "Which modality uses high-frequency sound waves?",
+
         options:
-        ["MRI", "CT", "X-Ray", "Ultrasound"],
+        [
+            "MRI",
+            "CT",
+            "X-Ray",
+            "Ultrasound"
+        ],
+
         answer:
         "Ultrasound"
     },
 
+
     {
         icon: "🔬",
+
         question:
         "Which modality is commonly useful for real-time imaging?",
+
         options:
-        ["Ultrasound", "CT", "X-Ray", "MRI"],
+        [
+            "Ultrasound",
+            "CT",
+            "X-Ray",
+            "MRI"
+        ],
+
         answer:
         "Ultrasound"
     }
@@ -634,102 +950,183 @@ const questions = [
 
 
 let currentQuestion = 0;
+
 let score = 0;
+
 let answered = false;
 
+
+/* ================= LOAD QUESTION ================= */
 
 function loadQuestion() {
 
     answered = false;
 
-    const q = questions[currentQuestion];
+    const q =
+        questions[currentQuestion];
 
-    document.getElementById("questionNumber").textContent =
-        "Question " + (currentQuestion + 1) + " / " + questions.length;
 
-    document.getElementById("score").textContent =
+    document.getElementById(
+        "questionNumber"
+    ).textContent =
+        "Question " +
+        (currentQuestion + 1) +
+        " / " +
+        questions.length;
+
+
+    document.getElementById(
+        "score"
+    ).textContent =
         "Score: " + score;
 
-    document.getElementById("quizIcon").textContent =
+
+    document.getElementById(
+        "quizIcon"
+    ).textContent =
         q.icon;
 
-    document.getElementById("question").textContent =
+
+    document.getElementById(
+        "question"
+    ).textContent =
         q.question;
 
-    document.getElementById("result").textContent = "";
 
-    document.getElementById("nextButton").style.display =
+    document.getElementById(
+        "result"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
         "none";
 
+
     const options =
-        document.getElementById("options");
+        document.getElementById(
+            "options"
+        );
+
 
     options.innerHTML = "";
 
-    q.options.forEach(function(option) {
 
-        const button =
-            document.createElement("button");
+    q.options.forEach(
+        function(option) {
 
-        button.className = "option";
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-        button.textContent = option;
 
-        button.onclick = function() {
-            checkAnswer(option, button);
-        };
+            button.className =
+                "option";
 
-        options.appendChild(button);
 
-    });
+            button.textContent =
+                option;
+
+
+            button.onclick =
+                function() {
+
+                    checkAnswer(
+                        option,
+                        button
+                    );
+
+                };
+
+
+            options.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
 
-function checkAnswer(answer, button) {
+/* ================= CHECK ANSWER ================= */
 
-    if (answered) return;
+function checkAnswer(
+    answer,
+    button
+) {
+
+    if (answered)
+        return;
+
 
     answered = true;
 
-    const result =
-        document.getElementById("result");
 
-    if (answer === questions[currentQuestion].answer) {
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    if (
+        answer ===
+        questions[currentQuestion].answer
+    ) {
 
         score++;
+
 
         result.textContent =
             "✓ Correct!";
 
+
         result.style.color =
             "#62e6c5";
 
-    } else {
+    }
+
+    else {
 
         result.textContent =
             "✕ Incorrect. Correct answer: " +
             questions[currentQuestion].answer;
+
 
         result.style.color =
             "#ff8a8a";
 
     }
 
-    document.getElementById("score").textContent =
+
+    document.getElementById(
+        "score"
+    ).textContent =
         "Score: " + score;
 
-    document.getElementById("nextButton").style.display =
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
         "inline-block";
 
 }
 
 
+/* ================= NEXT QUESTION ================= */
+
 function nextQuestion() {
 
     currentQuestion++;
 
-    if (currentQuestion >= questions.length) {
+
+    if (
+        currentQuestion >=
+        questions.length
+    ) {
 
         showFinalScore();
 
@@ -737,34 +1134,46 @@ function nextQuestion() {
 
     }
 
+
     loadQuestion();
 
 }
 
 
+/* ================= FINAL SCORE ================= */
+
 function showFinalScore() {
 
     const quiz =
-        document.querySelector(".quiz");
+        document.querySelector(
+            ".quiz"
+        );
+
 
     let message = "";
+
 
     if (score === 5) {
 
         message =
             "Excellent! You mastered the basics of medical imaging.";
 
-    } else if (score >= 3) {
+    }
+
+    else if (score >= 3) {
 
         message =
             "Good job! You have a solid understanding of the basics.";
 
-    } else {
+    }
+
+    else {
 
         message =
             "Keep learning! Explore the modalities above and try again.";
 
     }
+
 
     quiz.innerHTML = `
 
@@ -776,7 +1185,13 @@ function showFinalScore() {
             Quiz Complete
         </div>
 
-        <div style="font-size:40px;color:#62e6c5;margin:20px;">
+        <div
+            style="
+                font-size:40px;
+                color:#62e6c5;
+                margin:20px;
+            "
+        >
             ${score} / ${questions.length}
         </div>
 
@@ -787,7 +1202,7 @@ function showFinalScore() {
         <button
             class="btn"
             onclick="restartQuiz()"
-            style="background:transparent;cursor:pointer;">
+        >
             Try Again
         </button>
 
@@ -796,9 +1211,12 @@ function showFinalScore() {
 }
 
 
+/* ================= RESTART ================= */
+
 function restartQuiz() {
 
     currentQuestion = 0;
+
     score = 0;
 
     location.reload();
@@ -806,9 +1224,12 @@ function restartQuiz() {
 }
 
 
+/* ================= START ================= */
+
 loadQuestion();
 
 </script>
+
 
 </body>
 </html>
