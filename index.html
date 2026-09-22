@@ -4,1043 +4,459 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SignBridge — Sign Language Communication</title>
+<title>SignBridge Dataset Builder</title>
 
 <style>
 
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-:root{
-    --bg:#07090d;
-    --panel:#10141b;
-    --panel2:#151a22;
-    --line:#252c38;
-    --text:#f4f7fb;
-    --muted:#8993a3;
-    --accent:#66e3b4;
-    --accent2:#6ea8ff;
-    --danger:#ff6b6b;
 }
 
 body{
-    background:
-        radial-gradient(circle at 20% 0%,rgba(102,227,180,.10),transparent 30%),
-        radial-gradient(circle at 90% 10%,rgba(110,168,255,.10),transparent 30%),
-        var(--bg);
-    color:var(--text);
-    font-family:Arial,Helvetica,sans-serif;
-    min-height:100vh;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#07111f;
+    color:white;
 }
 
-button{
-    font:inherit;
-}
-
-.navbar{
-    position:sticky;
-    top:0;
-    z-index:50;
-    backdrop-filter:blur(16px);
-    background:rgba(7,9,13,.82);
-    border-bottom:1px solid var(--line);
-}
-
-.nav-inner{
-    max-width:1150px;
-    margin:auto;
-    padding:15px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.logo{
-    font-weight:800;
-    letter-spacing:1px;
-    font-size:20px;
-}
-
-.logo span{
-    color:var(--accent);
-}
-
-.nav-links{
-    display:flex;
-    gap:18px;
-}
-
-.nav-links a{
-    color:var(--muted);
-    text-decoration:none;
-    font-size:14px;
-}
-
-.nav-links a:hover{
-    color:var(--text);
-}
-
-.hero{
-    max-width:1150px;
-    margin:auto;
-    padding:80px 20px 50px;
-}
-
-.badge{
-    display:inline-flex;
-    border:1px solid rgba(102,227,180,.3);
-    background:rgba(102,227,180,.07);
-    color:var(--accent);
-    padding:8px 12px;
-    border-radius:100px;
-    font-size:12px;
-    margin-bottom:20px;
-}
-
-.hero h1{
-    font-size:clamp(42px,8vw,82px);
-    line-height:.95;
-    max-width:800px;
-    letter-spacing:-4px;
-}
-
-.hero h1 span{
-    color:var(--accent);
-}
-
-.hero p{
-    color:var(--muted);
-    max-width:650px;
-    margin-top:25px;
-    font-size:17px;
-    line-height:1.7;
-}
-
-.hero-buttons{
-    display:flex;
-    gap:12px;
-    margin-top:30px;
-    flex-wrap:wrap;
-}
-
-.btn{
-    border:none;
-    padding:14px 20px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:700;
-    transition:.2s;
-}
-
-.btn-primary{
-    background:var(--accent);
-    color:#06100c;
-}
-
-.btn-secondary{
-    background:var(--panel2);
-    color:var(--text);
-    border:1px solid var(--line);
-}
-
-.btn:hover{
-    transform:translateY(-2px);
-}
-
-.container{
-    max-width:1150px;
-    margin:auto;
+header{
     padding:20px;
+    text-align:center;
+    border-bottom:1px solid #22344a;
 }
 
-.section{
-    margin-top:60px;
+header h1{
+    margin:0;
 }
 
-.section-title{
-    font-size:32px;
-    margin-bottom:10px;
+header span{
+    color:#35d6a0;
 }
 
-.section-subtitle{
-    color:var(--muted);
-    line-height:1.6;
-    margin-bottom:25px;
-}
-
-.workspace{
-    display:grid;
-    grid-template-columns:1.25fr .75fr;
-    gap:18px;
-}
-
-.card{
-    background:rgba(16,20,27,.92);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:18px;
-    box-shadow:0 15px 50px rgba(0,0,0,.2);
-}
-
-.camera-card{
-    position:relative;
-    overflow:hidden;
+main{
+    width:94%;
+    max-width:900px;
+    margin:auto;
+    padding:20px 0 40px;
 }
 
 .camera{
+    position:relative;
     width:100%;
     aspect-ratio:16/10;
-    background:#030405;
-    border-radius:13px;
-    object-fit:cover;
-    display:block;
-}
-
-.camera-overlay{
-    position:absolute;
-    inset:18px;
-    pointer-events:none;
-    border-radius:13px;
-}
-
-.corner{
-    position:absolute;
-    width:35px;
-    height:35px;
-    border-color:var(--accent);
-}
-
-.c1{
-    top:15px;
-    left:15px;
-    border-top:2px solid;
-    border-left:2px solid;
-}
-
-.c2{
-    top:15px;
-    right:15px;
-    border-top:2px solid;
-    border-right:2px solid;
-}
-
-.c3{
-    bottom:15px;
-    left:15px;
-    border-bottom:2px solid;
-    border-left:2px solid;
-}
-
-.c4{
-    bottom:15px;
-    right:15px;
-    border-bottom:2px solid;
-    border-right:2px solid;
-}
-
-.camera-status{
-    margin-top:12px;
-    display:flex;
-    justify-content:space-between;
-    color:var(--muted);
-    font-size:12px;
-}
-
-.status-live{
-    color:var(--accent);
-}
-
-.result-card{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.result-label{
-    color:var(--muted);
-    font-size:12px;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-}
-
-.detected{
-    font-size:65px;
-    font-weight:800;
-    min-height:75px;
-}
-
-.confidence{
-    height:7px;
-    background:#242a34;
+    background:#000;
     border-radius:20px;
     overflow:hidden;
+    border:2px solid #243b55;
 }
 
-.confidence-bar{
-    width:0%;
+video{
+    width:100%;
     height:100%;
-    background:var(--accent);
-    transition:.3s;
+    object-fit:cover;
+    transform:scaleX(-1);
 }
 
-.word-box,
-.sentence-box{
-    background:var(--panel2);
-    border:1px solid var(--line);
-    padding:15px;
-    border-radius:12px;
+.cameraStatus{
+    position:absolute;
+    top:12px;
+    left:12px;
+    padding:9px 14px;
+    background:#111d2c;
+    border-radius:30px;
+    font-size:13px;
 }
 
-.word{
-    font-size:25px;
-    font-weight:700;
-    margin-top:5px;
-    min-height:30px;
+.dot{
+    display:inline-block;
+    width:9px;
+    height:9px;
+    background:#ffb000;
+    border-radius:50%;
+    margin-right:6px;
 }
 
-.sentence{
-    font-size:21px;
-    line-height:1.5;
-    min-height:65px;
-    margin-top:5px;
-}
-
-.controls{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:9px;
-}
-
-.control-btn{
-    padding:12px;
-    border-radius:9px;
-    border:1px solid var(--line);
-    background:#0c1016;
-    color:var(--text);
-    cursor:pointer;
-}
-
-.control-btn:hover{
-    border-color:var(--accent);
-}
-
-.control-btn.end{
-    background:rgba(102,227,180,.12);
-    color:var(--accent);
-}
-
-.control-btn.danger{
-    color:#ff8d8d;
-}
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.info-card{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:16px;
+.card{
+    background:#0d1928;
+    border:1px solid #22344a;
+    border-radius:18px;
     padding:20px;
+    margin-top:18px;
 }
 
-.info-icon{
-    font-size:28px;
-    margin-bottom:14px;
+.current{
+    text-align:center;
 }
 
-.info-card h3{
-    margin-bottom:8px;
+.currentLabel{
+    color:#8da1b8;
+    font-size:13px;
+    text-transform:uppercase;
 }
 
-.info-card p{
-    color:var(--muted);
-    line-height:1.6;
-    font-size:14px;
+.currentLetter{
+    font-size:70px;
+    font-weight:900;
+    color:#35d6a0;
+    margin:10px;
 }
 
-.alphabet{
-    display:grid;
-    grid-template-columns:repeat(13,1fr);
-    gap:8px;
+.samples{
+    font-size:18px;
 }
 
-.letter{
-    border:1px solid var(--line);
-    background:var(--panel);
-    color:var(--text);
-    border-radius:8px;
-    padding:12px 5px;
-    cursor:pointer;
-    font-weight:700;
-}
-
-.letter:hover,
-.letter.active{
-    background:var(--accent);
-    color:#06100c;
-}
-
-.history{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
+.progress{
+    width:100%;
+    height:10px;
+    background:#1c2b3d;
+    border-radius:20px;
+    overflow:hidden;
     margin-top:10px;
 }
 
-.history-item{
-    padding:8px 11px;
-    background:#0b0f15;
-    border:1px solid var(--line);
-    border-radius:8px;
-    font-size:13px;
+.progressBar{
+    height:100%;
+    width:0%;
+    background:#35d6a0;
+    transition:.2s;
 }
 
-.how{
+.letters{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
+    grid-template-columns:
+        repeat(7,1fr);
+    gap:7px;
+    margin-top:15px;
 }
 
-.step{
-    position:relative;
+.letter{
+    border:1px solid #2a4059;
+    background:#142337;
+    color:white;
+    padding:12px 5px;
+    border-radius:9px;
+    font-weight:bold;
 }
 
-.step-number{
-    color:var(--accent);
-    font-size:12px;
-    margin-bottom:10px;
+.letter.active{
+    background:#35d6a0;
+    color:#06130f;
 }
 
-.step h3{
-    margin-bottom:7px;
+button{
+    border:0;
+    padding:14px 18px;
+    border-radius:11px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:12px;
 }
 
-.step p{
-    color:var(--muted);
-    line-height:1.5;
-    font-size:14px;
+.primary{
+    background:#35d6a0;
+    color:#06130f;
 }
 
-.disclaimer{
-    margin-top:40px;
-    padding:16px;
-    border:1px solid #403b26;
-    background:#19160c;
-    color:#b9ae87;
-    border-radius:12px;
-    font-size:13px;
-    line-height:1.6;
+.secondary{
+    background:#18283b;
+    color:white;
+    border:1px solid #2b425d;
 }
 
-footer{
-    max-width:1150px;
-    margin:70px auto 30px;
-    padding:20px;
-    border-top:1px solid var(--line);
-    color:var(--muted);
-    font-size:13px;
+.danger{
+    background:#e05252;
+    color:white;
+}
+
+.controls{
     display:flex;
-    justify-content:space-between;
-    gap:20px;
-}
-
-.training{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-}
-
-.training-list{
-    display:flex;
-    flex-direction:column;
+    flex-wrap:wrap;
     gap:8px;
 }
 
-.training-letter{
+.status{
+    color:#9eb0c5;
+    margin-top:12px;
+    line-height:1.5;
+}
+
+.special{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.datasetList{
+    margin-top:15px;
+    max-height:300px;
+    overflow:auto;
+}
+
+.row{
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    padding:12px;
-    border:1px solid var(--line);
-    background:var(--panel);
-    border-radius:10px;
+    padding:10px;
+    border-bottom:1px solid #22344a;
 }
 
-.training-letter button{
-    background:var(--accent);
-    border:0;
-    border-radius:7px;
-    padding:7px 10px;
-    cursor:pointer;
+.ok{
+    color:#35d6a0;
 }
 
-.training-note{
-    color:var(--muted);
-    line-height:1.6;
-    font-size:14px;
+.warning{
+    color:#ffb000;
 }
 
-@media(max-width:850px){
+@media(max-width:600px){
 
-    .workspace{
-        grid-template-columns:1fr;
+    .letters{
+        grid-template-columns:
+            repeat(5,1fr);
     }
 
-    .info-grid,
-    .how,
-    .training{
-        grid-template-columns:1fr 1fr;
+    .currentLetter{
+        font-size:60px;
     }
 
-    .alphabet{
-        grid-template-columns:repeat(7,1fr);
-    }
-
-    .nav-links{
-        display:none;
-    }
-}
-
-@media(max-width:550px){
-
-    .hero{
-        padding-top:55px;
-    }
-
-    .hero h1{
-        letter-spacing:-2px;
-    }
-
-    .info-grid,
-    .how,
-    .training{
-        grid-template-columns:1fr;
-    }
-
-    .alphabet{
-        grid-template-columns:repeat(6,1fr);
-    }
-
-    .detected{
-        font-size:50px;
-    }
-
-    footer{
-        flex-direction:column;
-    }
 }
 
 </style>
 </head>
 
+
 <body>
 
-<nav class="navbar">
-    <div class="nav-inner">
+<header>
 
-        <div class="logo">
-            Sign<span>Bridge</span>
-        </div>
+<h1>Sign<span>Bridge</span></h1>
 
-        <div class="nav-links">
-            <a href="#translator">Translator</a>
-            <a href="#how">How it works</a>
-            <a href="#alphabet">Alphabet</a>
-            <a href="#training">AI Training</a>
-        </div>
-
-    </div>
-</nav>
-
-
-<header class="hero">
-
-    <div class="badge">
-        ACCESSIBILITY × COMPUTER VISION
-    </div>
-
-    <h1>
-        Turn signs into
-        <span>words.</span>
-    </h1>
-
-    <p>
-        SignBridge is a prototype designed to help bridge communication
-        between people who use sign language and people who do not know it.
-        The system is designed around letter recognition, word building
-        and sentence generation.
-    </p>
-
-    <div class="hero-buttons">
-
-        <button class="btn btn-primary"
-                onclick="scrollToTranslator()">
-            START SIGNING
-        </button>
-
-        <button class="btn btn-secondary"
-                onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">
-            HOW IT WORKS
-        </button>
-
-    </div>
+<p>ASL Dataset Builder</p>
 
 </header>
 
 
-<main class="container">
+<main>
 
 
-<section class="section" id="translator">
+<!-- CAMERA -->
 
-    <h2 class="section-title">
-        Sign Translator
-    </h2>
+<div class="camera">
 
-    <p class="section-subtitle">
-        Show a hand sign to the camera. The system is designed to identify
-        letters, build words and store completed words in a sentence.
-    </p>
+<video
+    id="video"
+    autoplay
+    muted
+    playsinline>
+</video>
 
+<div class="cameraStatus">
 
-    <div class="workspace">
+<span class="dot"
+      id="cameraDot">
+</span>
 
+<span id="cameraStatus">
+Camera stopped
+</span>
 
-        <div class="card camera-card">
+</div>
 
-            <video
-                id="camera"
-                class="camera"
-                autoplay
-                playsinline
-                muted>
-            </video>
+</div>
 
-            <div class="camera-overlay">
 
-                <div class="corner c1"></div>
-                <div class="corner c2"></div>
-                <div class="corner c3"></div>
-                <div class="corner c4"></div>
+<!-- CAMERA CONTROLS -->
 
-            </div>
+<div class="controls">
 
-            <div class="camera-status">
+<button
+    class="primary"
+    id="startCamera">
 
-                <span id="cameraStatus">
-                    Camera inactive
-                </span>
+📷 Start Camera
 
-                <span class="status-live">
-                    ● LIVE SYSTEM
-                </span>
+</button>
 
-            </div>
+<button
+    class="secondary"
+    id="stopCamera">
 
-        </div>
+Stop Camera
 
+</button>
 
-        <div class="card result-card">
+</div>
 
-            <div>
 
-                <div class="result-label">
-                    Detected letter
-                </div>
+<!-- CURRENT CLASS -->
 
-                <div id="detectedLetter"
-                     class="detected">
-                    —
-                </div>
+<div class="card current">
 
-                <div class="confidence">
-                    <div id="confidenceBar"
-                         class="confidence-bar">
-                    </div>
-                </div>
+<div class="currentLabel">
 
-                <div id="confidenceText"
-                     style="color:#8993a3;font-size:12px;margin-top:6px;">
-                    Waiting for recognition
-                </div>
+Current sign
 
-            </div>
+</div>
 
+<div
+    class="currentLetter"
+    id="currentLetter">
 
-            <div class="word-box">
+A
 
-                <div class="result-label">
-                    Current word
-                </div>
+</div>
 
-                <div id="currentWord"
-                     class="word">
-                    —
-                </div>
+<div class="samples">
 
-            </div>
+Samples:
+<span id="sampleCount">
+0
+</span>
 
+</div>
 
-            <div class="sentence-box">
+<div class="progress">
 
-                <div class="result-label">
-                    Sentence
-                </div>
+<div
+    class="progressBar"
+    id="progressBar">
+</div>
 
-                <div id="sentence"
-                     class="sentence">
-                    —
-                </div>
+</div>
 
-            </div>
+</div>
 
 
-            <div>
+<!-- LETTER SELECTION -->
 
-                <div class="result-label">
-                    Actions
-                </div>
+<div class="card">
 
-                <div class="controls">
+<h2>
+Choose ASL letter
+</h2>
 
-                    <button
-                        class="control-btn"
-                        onclick="deleteLetter()">
-                        ← DELETE
-                    </button>
+<div
+    class="letters"
+    id="letters">
+</div>
 
-                    <button
-                        class="control-btn end"
-                        onclick="endWord()">
-                        SPACE / END WORD
-                    </button>
+</div>
 
-                    <button
-                        class="control-btn"
-                        onclick="clearWord()">
-                        CLEAR WORD
-                    </button>
 
-                    <button
-                        class="control-btn end"
-                        onclick="endSentence()">
-                        END SENTENCE
-                    </button>
+<!-- COLLECTION -->
 
-                    <button
-                        class="control-btn danger"
-                        onclick="clearAll()">
-                        CLEAR ALL
-                    </button>
+<div class="card">
 
-                    <button
-                        class="control-btn"
-                        onclick="speakSentence()">
-                        🔊 SPEAK
-                    </button>
+<h2>
+Collect Dataset
+</h2>
 
-                </div>
+<p class="status">
 
-            </div>
+اختر حرفًا، قم بإشارة الحرف أمام الكاميرا،
+ثم اضغط على زر جمع البيانات.
 
+الموقع سيجمع نقاط اليد تلقائيًا.
 
-            <div>
+</p>
 
-                <div class="result-label">
-                    Recognized words
-                </div>
 
-                <div id="history"
-                     class="history">
-                </div>
+<button
+    class="primary"
+    id="collect">
 
-            </div>
+● Start collecting
 
-        </div>
+</button>
 
-    </div>
 
-</section>
+<div class="status"
+     id="collectionStatus">
 
+Ready.
 
+</div>
 
-<section class="section" id="how">
+</div>
 
-    <h2 class="section-title">
-        How SignBridge works
-    </h2>
 
-    <p class="section-subtitle">
-        The concept follows a simple communication pipeline.
-    </p>
+<!-- SPECIAL -->
 
+<div class="card">
 
-    <div class="how">
+<h2>
+Special gestures
+</h2>
 
-        <div class="card step">
+<p class="status">
 
-            <div class="step-number">
-                01 / CAMERA
-            </div>
+سنستخدم إشارتين خاصتين لاحقًا:
 
-            <h3>Capture</h3>
+</p>
 
-            <p>
-                The smartphone camera captures the user's hand.
-            </p>
+<div class="special">
 
-        </div>
+<button
+    class="secondary"
+    data-special="END_WORD">
 
+END WORD
 
-        <div class="card step">
+</button>
 
-            <div class="step-number">
-                02 / VISION
-            </div>
+<button
+    class="secondary"
+    data-special="END_SENTENCE">
 
-            <h3>Analyze</h3>
+END SENTENCE
 
-            <p>
-                Computer vision extracts the position of the hand
-                and its landmarks.
-            </p>
+</button>
 
-        </div>
+</div>
 
+</div>
 
-        <div class="card step">
 
-            <div class="step-number">
-                03 / LETTER
-            </div>
+<!-- DATASET -->
 
-            <h3>Recognize</h3>
+<div class="card">
 
-            <p>
-                A trained classifier determines which letter
-                corresponds to the hand configuration.
-            </p>
+<h2>
+Dataset
+</h2>
 
-        </div>
+<div
+    class="datasetList"
+    id="datasetList">
+</div>
 
 
-        <div class="card step">
+<div class="controls">
 
-            <div class="step-number">
-                04 / LANGUAGE
-            </div>
+<button
+    class="primary"
+    id="download">
 
-            <h3>Build</h3>
+⬇ Download Dataset
 
-            <p>
-                Letters become words, words become sentences,
-                and the final sentence can be spoken aloud.
-            </p>
+</button>
 
-        </div>
+<button
+    class="secondary"
+    id="save">
 
-    </div>
+Save on phone
 
-</section>
+</button>
 
+<button
+    class="danger"
+    id="reset">
 
+Reset Dataset
 
-<section class="section" id="alphabet">
+</button>
 
-    <h2 class="section-title">
-        Alphabet
-    </h2>
-
-    <p class="section-subtitle">
-        The prototype currently uses the alphabet as the fundamental
-        building block of communication.
-    </p>
-
-
-    <div id="alphabetGrid"
-         class="alphabet">
-    </div>
-
-</section>
-
-
-
-<section class="section">
-
-    <h2 class="section-title">
-        Word Builder
-    </h2>
-
-    <p class="section-subtitle">
-        The key idea: the user does not need to perform an entire word at once.
-        Each recognized letter is added to the current word. A dedicated
-        end-word action saves the word and moves to the next one.
-    </p>
-
-
-    <div class="card">
-
-        <div style="font-size:14px;color:#8993a3;margin-bottom:10px;">
-            Example
-        </div>
-
-        <div style="font-size:24px;font-weight:700;">
-            H → E → L → P
-        </div>
-
-        <div style="margin:12px 0;color:#66e3b4;">
-            ↓ END WORD
-        </div>
-
-        <div style="font-size:24px;font-weight:700;">
-            HELP
-        </div>
-
-        <div style="margin:12px 0;color:#8993a3;">
-            ↓ next word
-        </div>
-
-        <div style="font-size:24px;font-weight:700;">
-            I → ...
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<section class="section" id="training">
-
-    <h2 class="section-title">
-        AI Training
-    </h2>
-
-    <p class="section-subtitle">
-        A real A–Z recognition system requires a trained classifier.
-        This section prepares the project for collecting hand-landmark
-        examples for each letter.
-    </p>
-
-
-    <div class="training">
-
-        <div class="card">
-
-            <h3 style="margin-bottom:12px;">
-                Dataset concept
-            </h3>
-
-            <p class="training-note">
-                For every letter, collect multiple examples of the hand
-                configuration from different positions, distances and
-                lighting conditions. The model can then learn the
-                relationship between hand landmarks and the letter.
-            </p>
-
-            <br>
-
-            <button
-                class="btn btn-primary"
-                onclick="showTrainingMessage()">
-                START DATA COLLECTION
-            </button>
-
-            <p id="trainingMessage"
-               class="training-note"
-               style="margin-top:15px;">
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3 style="margin-bottom:12px;">
-                Classes
-            </h3>
-
-            <div id="trainingList"
-                 class="training-list">
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<section class="section">
-
-    <div class="info-grid">
-
-        <div class="info-card">
-
-            <div class="info-icon">
-                🤟
-            </div>
-
-            <h3>Sign → Letter</h3>
-
-            <p>
-                The core recognition task converts a hand configuration
-                into an alphabet character.
-            </p>
-
-        </div>
-
-
-        <div class="info-card">
-
-            <div class="info-icon">
-                🧩
-            </div>
-
-            <h3>Letter → Word</h3>
-
-            <p>
-                Letters are accumulated until the user indicates
-                that the current word is complete.
-            </p>
-
-        </div>
-
-
-        <div class="info-card">
-
-            <div class="info-icon">
-                🔊
-            </div>
-
-            <h3>Sentence → Voice</h3>
-
-            <p>
-                The completed sentence can be converted into speech
-                using the smartphone browser.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<div class="disclaimer">
-
-<strong>Prototype notice:</strong>
-SignBridge is an accessibility and communication prototype.
-It is not a certified medical device, diagnostic system or professional
-sign-language interpretation service. Recognition accuracy depends on
-the training dataset, camera conditions and the sign-language system used.
+</div>
 
 </div>
 
@@ -1048,492 +464,771 @@ the training dataset, camera conditions and the sign-language system used.
 </main>
 
 
-<footer>
+<script type="module">
 
-    <span>
-        SignBridge — Accessibility through Computer Vision
-    </span>
+/* =====================================================
+   MEDIAPIPE
+===================================================== */
 
-    <span>
-        Biomedical Engineering Project • 2026
-    </span>
-
-</footer>
-
-
-<script>
-
-/* =========================================================
-   SIGNBRIDGE
-   Communication Engine
-   ========================================================= */
+import {
+    FilesetResolver,
+    HandLandmarker
+}
+from
+"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22";
 
 
-/* -----------------------------
-   GLOBAL STATE
------------------------------ */
+/* =====================================================
+   SETTINGS
+===================================================== */
 
-let currentWord = "";
-let sentenceWords = [];
+const WASM_PATH =
+"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm";
 
-let cameraStream = null;
+const MODEL_PATH =
+"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task";
 
 
-/* -----------------------------
-   DOM ELEMENTS
------------------------------ */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
-const video = document.getElementById("camera");
+const video =
+document.getElementById("video");
 
-const detectedLetter =
-    document.getElementById("detectedLetter");
+const startButton =
+document.getElementById("startCamera");
 
-const currentWordElement =
-    document.getElementById("currentWord");
+const stopButton =
+document.getElementById("stopCamera");
 
-const sentenceElement =
-    document.getElementById("sentence");
-
-const confidenceBar =
-    document.getElementById("confidenceBar");
-
-const confidenceText =
-    document.getElementById("confidenceText");
-
-const historyElement =
-    document.getElementById("history");
+const collectButton =
+document.getElementById("collect");
 
 const cameraStatus =
-    document.getElementById("cameraStatus");
+document.getElementById("cameraStatus");
+
+const cameraDot =
+document.getElementById("cameraDot");
+
+const currentLetter =
+document.getElementById("currentLetter");
+
+const sampleCount =
+document.getElementById("sampleCount");
+
+const progressBar =
+document.getElementById("progressBar");
+
+const collectionStatus =
+document.getElementById("collectionStatus");
+
+const lettersContainer =
+document.getElementById("letters");
+
+const datasetList =
+document.getElementById("datasetList");
 
 
-/* -----------------------------
-   CAMERA
------------------------------ */
+/* =====================================================
+   VARIABLES
+===================================================== */
 
-async function startCamera(){
+let handLandmarker = null;
+
+let stream = null;
+
+let running = false;
+
+let collecting = false;
+
+let selectedClass = "A";
+
+let dataset =
+JSON.parse(
+localStorage.getItem(
+"signbridge_dataset"
+) || "{}"
+);
+
+
+/* =====================================================
+   CREATE LETTER BUTTONS
+===================================================== */
+
+const alphabet =
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+alphabet.forEach(letter => {
+
+    const button =
+    document.createElement("button");
+
+    button.className =
+    "letter";
+
+    button.textContent =
+    letter;
+
+    button.onclick = () => {
+
+        selectedClass = letter;
+
+        currentLetter.textContent =
+        letter;
+
+        document
+        .querySelectorAll(".letter")
+        .forEach(b =>
+            b.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        updateUI();
+
+    };
+
+    lettersContainer.appendChild(button);
+
+});
+
+
+document
+.querySelector(".letter")
+.classList.add("active");
+
+
+/* =====================================================
+   SPECIAL BUTTONS
+===================================================== */
+
+document
+.querySelectorAll("[data-special]")
+.forEach(button => {
+
+    button.onclick = () => {
+
+        selectedClass =
+        button.dataset.special;
+
+        currentLetter.textContent =
+        selectedClass;
+
+        document
+        .querySelectorAll(".letter")
+        .forEach(b =>
+            b.classList.remove("active")
+        );
+
+        updateUI();
+
+    };
+
+});
+
+
+/* =====================================================
+   INITIALIZE MEDIAPIPE
+===================================================== */
+
+async function initialize(){
+
+    collectionStatus.textContent =
+    "Loading hand recognition...";
 
     try{
 
-        cameraStream =
-            await navigator.mediaDevices.getUserMedia({
-                video:{
-                    facingMode:"user"
+        const vision =
+        await FilesetResolver
+        .forVisionTasks(WASM_PATH);
+
+
+        handLandmarker =
+        await HandLandmarker
+        .createFromOptions(
+            vision,
+            {
+
+                baseOptions:{
+                    modelAssetPath:
+                    MODEL_PATH
                 },
-                audio:false
-            });
 
-        video.srcObject = cameraStream;
+                runningMode:
+                "VIDEO",
 
-        cameraStatus.textContent =
-            "Camera active";
+                numHands:1,
+
+                minHandDetectionConfidence:
+                0.5,
+
+                minHandPresenceConfidence:
+                0.5,
+
+                minTrackingConfidence:
+                0.5
+
+            }
+        );
+
+
+        collectionStatus.textContent =
+        "AI ready.";
 
     }
 
     catch(error){
 
+        console.error(error);
+
+        collectionStatus.textContent =
+        "Error loading hand recognition.";
+
+    }
+
+}
+
+
+/* =====================================================
+   START CAMERA
+===================================================== */
+
+async function startCamera(){
+
+    try{
+
+        stream =
+        await navigator
+        .mediaDevices
+        .getUserMedia({
+
+            video:{
+                facingMode:"user",
+                width:{
+                    ideal:1280
+                },
+                height:{
+                    ideal:720
+                }
+            },
+
+            audio:false
+
+        });
+
+
+        video.srcObject =
+        stream;
+
+        await video.play();
+
+        running = true;
+
         cameraStatus.textContent =
-            "Camera permission required";
+        "Camera running";
+
+        cameraDot.style.background =
+        "#35d6a0";
+
+
+        processFrame();
+
+    }
+
+    catch(error){
 
         console.error(error);
 
+        cameraStatus.textContent =
+        "Camera permission denied";
+
+        collectionStatus.textContent =
+        "Autorisez la caméra dans Chrome.";
+
     }
 
 }
 
 
-/* -----------------------------
-   SCROLL
------------------------------ */
+/* =====================================================
+   STOP CAMERA
+===================================================== */
 
-function scrollToTranslator(){
+function stopCamera(){
 
-    document
-        .getElementById("translator")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
+    running = false;
 
-    startCamera();
+    if(stream){
 
-}
-
-
-/* -----------------------------
-   ADD LETTER
------------------------------ */
-
-function addLetter(letter){
-
-    if(!letter) return;
-
-    currentWord += letter;
-
-    updateDisplay();
-
-    highlightLetter(letter);
-
-}
-
-
-/* -----------------------------
-   DELETE
------------------------------ */
-
-function deleteLetter(){
-
-    if(currentWord.length === 0)
-        return;
-
-    currentWord =
-        currentWord.slice(0,-1);
-
-    updateDisplay();
-
-}
-
-
-/* -----------------------------
-   END WORD
------------------------------ */
-
-function endWord(){
-
-    if(currentWord.trim() === "")
-        return;
-
-    sentenceWords.push(
-        currentWord.trim()
-    );
-
-    currentWord = "";
-
-    updateDisplay();
-
-    updateHistory();
-
-}
-
-
-/* -----------------------------
-   END SENTENCE
------------------------------ */
-
-function endSentence(){
-
-    if(currentWord.trim() !== ""){
-
-        sentenceWords.push(
-            currentWord.trim()
+        stream
+        .getTracks()
+        .forEach(track =>
+            track.stop()
         );
 
-        currentWord = "";
+    }
+
+    video.srcObject = null;
+
+    cameraStatus.textContent =
+    "Camera stopped";
+
+    cameraDot.style.background =
+    "#ffb000";
+
+}
+
+
+/* =====================================================
+   NORMALIZE HAND
+===================================================== */
+
+function normalizeLandmarks(
+    landmarks
+){
+
+    if(
+        !landmarks ||
+        landmarks.length !== 21
+    ){
+
+        return null;
 
     }
 
-    updateDisplay();
 
-    updateHistory();
-
-    speakSentence();
-
-}
+    const wrist =
+    landmarks[0];
 
 
-/* -----------------------------
-   CLEAR WORD
------------------------------ */
+    const points =
+    landmarks.map(point => [
 
-function clearWord(){
+        point.x - wrist.x,
 
-    currentWord = "";
+        point.y - wrist.y,
 
-    updateDisplay();
+        point.z - wrist.z
 
-}
-
-
-/* -----------------------------
-   CLEAR ALL
------------------------------ */
-
-function clearAll(){
-
-    currentWord = "";
-
-    sentenceWords = [];
-
-    detectedLetter.textContent = "—";
-
-    confidenceBar.style.width = "0%";
-
-    confidenceText.textContent =
-        "Waiting for recognition";
-
-    updateDisplay();
-
-    updateHistory();
-
-}
+    ]);
 
 
-/* -----------------------------
-   DISPLAY
------------------------------ */
+    let scale = 0;
 
-function updateDisplay(){
 
-    currentWordElement.textContent =
-        currentWord || "—";
+    points.forEach(point => {
 
-    sentenceElement.textContent =
-        sentenceWords.length
-            ? sentenceWords.join(" ")
-            : "—";
+        const distance =
+        Math.sqrt(
+
+            point[0] *
+            point[0] +
+
+            point[1] *
+            point[1] +
+
+            point[2] *
+            point[2]
+
+        );
+
+
+        scale =
+        Math.max(
+            scale,
+            distance
+        );
+
+    });
+
+
+    if(scale === 0)
+    return null;
+
+
+    return points
+    .flat()
+    .map(
+        value =>
+        value / scale
+    );
 
 }
 
 
-/* -----------------------------
-   HISTORY
------------------------------ */
+/* =====================================================
+   CAMERA LOOP
+===================================================== */
 
-function updateHistory(){
+async function processFrame(){
 
-    historyElement.innerHTML = "";
+    if(!running)
+    return;
 
-    sentenceWords.forEach(
-        word => {
 
-            const item =
-                document.createElement("div");
+    if(
+        handLandmarker &&
+        video.readyState >= 2
+    ){
 
-            item.className =
-                "history-item";
+        const result =
+        handLandmarker
+        .detectForVideo(
+            video,
+            performance.now()
+        );
 
-            item.textContent =
-                word;
 
-            historyElement.appendChild(item);
+        if(
+            result.landmarks &&
+            result.landmarks.length > 0
+        ){
 
+            if(collecting){
+
+                const vector =
+                normalizeLandmarks(
+                    result.landmarks[0]
+                );
+
+
+                if(vector){
+
+                    if(
+                        !dataset[selectedClass]
+                    ){
+
+                        dataset[selectedClass] =
+                        [];
+
+                    }
+
+
+                    dataset[selectedClass]
+                    .push(vector);
+
+
+                    updateUI();
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        processFrame
+    );
+
+}
+
+
+/* =====================================================
+   COLLECT DATA
+===================================================== */
+
+collectButton.onclick =
+async () => {
+
+    if(!running){
+
+        collectionStatus.textContent =
+        "شغّل الكاميرا أولاً.";
+
+        return;
+
+    }
+
+
+    if(!handLandmarker){
+
+        collectionStatus.textContent =
+        "AI لم يتم تحميله بعد.";
+
+        return;
+
+    }
+
+
+    if(collecting){
+
+        collecting = false;
+
+        collectButton.textContent =
+        "● Start collecting";
+
+        collectionStatus.textContent =
+        "Collection stopped.";
+
+        saveDataset();
+
+        return;
+
+    }
+
+
+    if(!dataset[selectedClass]){
+
+        dataset[selectedClass] =
+        [];
+
+    }
+
+
+    collecting = true;
+
+    collectButton.textContent =
+    "■ Stop collecting";
+
+    collectionStatus.textContent =
+    "Hold the " +
+    selectedClass +
+    " sign...";
+
+
+    setTimeout(() => {
+
+        if(collecting){
+
+            collecting = false;
+
+            collectButton.textContent =
+            "● Start collecting";
+
+            collectionStatus.textContent =
+            "Collection complete.";
+
+            saveDataset();
+
+        }
+
+    },3000);
+
+};
+
+
+/* =====================================================
+   UPDATE UI
+===================================================== */
+
+function updateUI(){
+
+    const count =
+    dataset[selectedClass]
+    ?.length || 0;
+
+
+    sampleCount.textContent =
+    count;
+
+
+    const percent =
+    Math.min(
+        100,
+        count
+        );
+
+    progressBar.style.width =
+    percent + "%";
+
+
+    renderDataset();
+
+}
+
+
+/* =====================================================
+   RENDER DATASET
+===================================================== */
+
+function renderDataset(){
+
+    datasetList.innerHTML = "";
+
+
+    const labels =
+    Object.keys(dataset);
+
+
+    if(labels.length === 0){
+
+        datasetList.innerHTML =
+        "<p class='status'>No data yet.</p>";
+
+        return;
+
+    }
+
+
+    labels.forEach(label => {
+
+        const row =
+        document.createElement("div");
+
+        row.className =
+        "row";
+
+
+        const name =
+        document.createElement("span");
+
+        name.textContent =
+        label;
+
+
+        const count =
+        document.createElement("span");
+
+        count.textContent =
+        dataset[label].length +
+        " samples";
+
+
+        count.className =
+        dataset[label].length >= 30
+        ? "ok"
+        : "warning";
+
+
+        row.appendChild(name);
+
+        row.appendChild(count);
+
+        datasetList.appendChild(row);
+
+    });
+
+}
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function saveDataset(){
+
+    localStorage.setItem(
+        "signbridge_dataset",
+        JSON.stringify(dataset)
+    );
+
+}
+
+
+document
+.getElementById("save")
+.onclick = () => {
+
+    saveDataset();
+
+    collectionStatus.textContent =
+    "Dataset saved on this phone.";
+
+};
+
+
+/* =====================================================
+   DOWNLOAD JSON
+===================================================== */
+
+document
+.getElementById("download")
+.onclick = () => {
+
+    const data =
+    JSON.stringify(
+        dataset,
+        null,
+        2
+    );
+
+
+    const blob =
+    new Blob(
+        [data],
+        {
+            type:
+            "application/json"
         }
     );
 
-}
 
-
-/* -----------------------------
-   SPEECH
------------------------------ */
-
-function speakSentence(){
-
-    const text =
-        sentenceWords.join(" ");
-
-    if(!text)
-        return;
-
-    if(!("speechSynthesis" in window)){
-
-        alert(
-            "Text-to-speech is not supported by this browser."
-        );
-
-        return;
-
-    }
-
-    const utterance =
-        new SpeechSynthesisUtterance(text);
-
-    utterance.lang = "en-US";
-
-    utterance.rate = .9;
-
-    window.speechSynthesis.cancel();
-
-    window.speechSynthesis.speak(
-        utterance
+    const url =
+    URL.createObjectURL(
+        blob
     );
 
-}
+
+    const link =
+    document.createElement("a");
 
 
-/* -----------------------------
-   ALPHABET
------------------------------ */
+    link.href = url;
 
-const letters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    link.download =
+    "signbridge-asl-dataset.json";
 
-const alphabetGrid =
-    document.getElementById(
-        "alphabetGrid"
+
+    link.click();
+
+
+    URL.revokeObjectURL(url);
+
+};
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+document
+.getElementById("reset")
+.onclick = () => {
+
+    if(
+        !confirm(
+            "Delete all dataset?"
+        )
+    )
+    return;
+
+
+    dataset = {};
+
+    localStorage.removeItem(
+        "signbridge_dataset"
     );
 
-letters.forEach(
-    letter => {
+    updateUI();
 
-        const button =
-            document.createElement("button");
+    collectionStatus.textContent =
+    "Dataset deleted.";
 
-        button.className =
-            "letter";
-
-        button.textContent =
-            letter;
-
-        button.onclick = () =>
-            addLetter(letter);
-
-        alphabetGrid.appendChild(button);
-
-    }
-);
+};
 
 
-/* -----------------------------
-   HIGHLIGHT
------------------------------ */
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
 
-function highlightLetter(letter){
+startButton.onclick =
+startCamera;
 
-    document
-        .querySelectorAll(".letter")
-        .forEach(
-            element => {
-
-                element.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-    const target =
-        [...document.querySelectorAll(".letter")]
-        .find(
-            element =>
-                element.textContent === letter
-        );
-
-    if(target){
-
-        target.classList.add("active");
-
-        setTimeout(
-            () => {
-                target.classList.remove("active");
-            },
-            500
-        );
-
-    }
-
-}
+stopButton.onclick =
+stopCamera;
 
 
-/* -----------------------------
-   DEMO RECOGNITION
------------------------------
+/* =====================================================
+   START AI
+===================================================== */
 
-This function is intentionally separated
-from the communication engine.
+initialize();
 
-Later the trained AI classifier will call:
-
-addLetter(predictedLetter)
-
-instead of this demo function.
------------------------------ */
-
-
-/*
-   Example:
-
-   AI prediction:
-
-   const predictedLetter = "A";
-
-   addLetter(predictedLetter);
-
-*/
-
-
-/* -----------------------------
-   TRAINING
------------------------------ */
-
-const trainingList =
-    document.getElementById(
-        "trainingList"
-    );
-
-letters.forEach(
-    letter => {
-
-        const row =
-            document.createElement("div");
-
-        row.className =
-            "training-letter";
-
-        row.innerHTML = `
-            <strong>${letter}</strong>
-            <button onclick="selectTrainingLetter('${letter}')">
-                COLLECT
-            </button>
-        `;
-
-        trainingList.appendChild(row);
-
-    }
-);
-
-
-function selectTrainingLetter(letter){
-
-    const message =
-        document.getElementById(
-            "trainingMessage"
-        );
-
-    message.textContent =
-        "Selected class: " +
-        letter +
-        ". The next stage will collect hand landmarks for this class.";
-
-}
-
-
-function showTrainingMessage(){
-
-    const message =
-        document.getElementById(
-            "trainingMessage"
-        );
-
-    message.textContent =
-        "Training mode prepared. The AI dataset will contain hand-landmark samples for A–Z.";
-
-}
-
-
-/* -----------------------------
-   INITIALIZATION
------------------------------ */
-
-updateDisplay();
-
-updateHistory();
-
-
-/*
-   Do not automatically request
-   camera permission on page load.
-   The user starts it manually.
-*/
+updateUI();
 
 </script>
 
