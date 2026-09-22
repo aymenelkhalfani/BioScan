@@ -4,2153 +4,1536 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BioScan — Interactive Medical Imaging Lab</title>
+<title>SignBridge — Sign Language Communication</title>
 
 <style>
 
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-html{
-  scroll-behavior:smooth;
+:root{
+    --bg:#07090d;
+    --panel:#10141b;
+    --panel2:#151a22;
+    --line:#252c38;
+    --text:#f4f7fb;
+    --muted:#8993a3;
+    --accent:#66e3b4;
+    --accent2:#6ea8ff;
+    --danger:#ff6b6b;
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#071016;
-  color:#eaf6f7;
-  line-height:1.6;
+    background:
+        radial-gradient(circle at 20% 0%,rgba(102,227,180,.10),transparent 30%),
+        radial-gradient(circle at 90% 10%,rgba(110,168,255,.10),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
 }
 
-/* NAV */
+button{
+    font:inherit;
+}
 
-nav{
-  position:sticky;
-  top:0;
-  z-index:100;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 7%;
-  background:rgba(7,16,22,.94);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid #1b3038;
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    backdrop-filter:blur(16px);
+    background:rgba(7,9,13,.82);
+    border-bottom:1px solid var(--line);
+}
+
+.nav-inner{
+    max-width:1150px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .logo{
-  font-size:21px;
-  font-weight:800;
-  letter-spacing:2px;
+    font-weight:800;
+    letter-spacing:1px;
+    font-size:20px;
 }
 
 .logo span{
-  color:#5de4d0;
+    color:var(--accent);
 }
 
-nav a{
-  color:#9fb5ba;
-  text-decoration:none;
-  margin-left:20px;
-  font-size:14px;
+.nav-links{
+    display:flex;
+    gap:18px;
 }
 
-nav a:hover{
-  color:#5de4d0;
+.nav-links a{
+    color:var(--muted);
+    text-decoration:none;
+    font-size:14px;
 }
 
-/* HERO */
+.nav-links a:hover{
+    color:var(--text);
+}
 
 .hero{
-  min-height:75vh;
-  display:flex;
-  align-items:center;
-  padding:70px 7%;
-  position:relative;
-  overflow:hidden;
-
-  background:
-  linear-gradient(rgba(93,228,208,.035) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(93,228,208,.035) 1px,transparent 1px);
-
-  background-size:45px 45px;
+    max-width:1150px;
+    margin:auto;
+    padding:80px 20px 50px;
 }
 
-.hero-content{
-  max-width:850px;
+.badge{
+    display:inline-flex;
+    border:1px solid rgba(102,227,180,.3);
+    background:rgba(102,227,180,.07);
+    color:var(--accent);
+    padding:8px 12px;
+    border-radius:100px;
+    font-size:12px;
+    margin-bottom:20px;
 }
 
-.eyebrow{
-  color:#5de4d0;
-  font-size:13px;
-  letter-spacing:3px;
-  font-weight:bold;
-  margin-bottom:18px;
-}
-
-h1{
-  font-size:clamp(42px,8vw,82px);
-  line-height:1;
-  margin-bottom:25px;
+.hero h1{
+    font-size:clamp(42px,8vw,82px);
+    line-height:.95;
+    max-width:800px;
+    letter-spacing:-4px;
 }
 
 .hero h1 span{
-  color:#5de4d0;
+    color:var(--accent);
 }
 
 .hero p{
-  max-width:680px;
-  color:#a9bec3;
-  font-size:18px;
+    color:var(--muted);
+    max-width:650px;
+    margin-top:25px;
+    font-size:17px;
+    line-height:1.7;
 }
 
-/* GENERAL */
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:none;
+    padding:14px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:700;
+    transition:.2s;
+}
+
+.btn-primary{
+    background:var(--accent);
+    color:#06100c;
+}
+
+.btn-secondary{
+    background:var(--panel2);
+    color:var(--text);
+    border:1px solid var(--line);
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.container{
+    max-width:1150px;
+    margin:auto;
+    padding:20px;
+}
 
 .section{
-  padding:85px 7%;
+    margin-top:60px;
 }
 
 .section-title{
-  font-size:34px;
-  margin-bottom:12px;
+    font-size:32px;
+    margin-bottom:10px;
 }
 
 .section-subtitle{
-  color:#91a9ae;
-  max-width:700px;
-  margin-bottom:35px;
+    color:var(--muted);
+    line-height:1.6;
+    margin-bottom:25px;
 }
 
-/* MODALITIES */
-
-.modality-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
+.workspace{
+    display:grid;
+    grid-template-columns:1.25fr .75fr;
+    gap:18px;
 }
 
-.modality{
-  background:#0b1a21;
-  border:1px solid #1b333c;
-  border-radius:18px;
-  padding:25px;
-  cursor:pointer;
-  transition:.25s;
+.card{
+    background:rgba(16,20,27,.92);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 15px 50px rgba(0,0,0,.2);
 }
 
-.modality:hover,
-.modality.active{
-  transform:translateY(-5px);
-  border-color:#5de4d0;
-  background:#0e232a;
+.camera-card{
+    position:relative;
+    overflow:hidden;
 }
 
-.modality-icon{
-  font-size:35px;
-  margin-bottom:15px;
+.camera{
+    width:100%;
+    aspect-ratio:16/10;
+    background:#030405;
+    border-radius:13px;
+    object-fit:cover;
+    display:block;
 }
 
-.modality h3{
-  margin-bottom:8px;
+.camera-overlay{
+    position:absolute;
+    inset:18px;
+    pointer-events:none;
+    border-radius:13px;
 }
 
-.modality p{
-  color:#8fa7ac;
-  font-size:14px;
+.corner{
+    position:absolute;
+    width:35px;
+    height:35px;
+    border-color:var(--accent);
 }
 
-/* LAB */
-
-.lab{
-  background:#09171e;
-  border:1px solid #1b333c;
-  border-radius:24px;
-  overflow:hidden;
+.c1{
+    top:15px;
+    left:15px;
+    border-top:2px solid;
+    border-left:2px solid;
 }
 
-.lab-header{
-  padding:25px;
-  border-bottom:1px solid #1b333c;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
+.c2{
+    top:15px;
+    right:15px;
+    border-top:2px solid;
+    border-right:2px solid;
 }
 
-.lab-title{
-  font-size:27px;
+.c3{
+    bottom:15px;
+    left:15px;
+    border-bottom:2px solid;
+    border-left:2px solid;
 }
 
-.lab-description{
-  color:#91a9ae;
-  margin-top:7px;
-  max-width:700px;
+.c4{
+    bottom:15px;
+    right:15px;
+    border-bottom:2px solid;
+    border-right:2px solid;
 }
 
-.lab-status{
-  white-space:nowrap;
-  height:max-content;
-  padding:8px 13px;
-  border:1px solid #31515a;
-  border-radius:30px;
-  font-size:12px;
-  color:#5de4d0;
+.camera-status{
+    margin-top:12px;
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:12px;
 }
 
-/* SIMULATOR */
-
-.simulator{
-  padding:28px;
+.status-live{
+    color:var(--accent);
 }
 
-.simulator-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
+.result-card{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
 }
 
-.simulator-label{
-  color:#78939a;
-  font-size:12px;
-  letter-spacing:2px;
+.result-label{
+    color:var(--muted);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
 }
 
-.simulation-btn{
-  border:0;
-  background:#5de4d0;
-  color:#061114;
-  padding:12px 20px;
-  border-radius:10px;
-  font-weight:800;
-  cursor:pointer;
+.detected{
+    font-size:65px;
+    font-weight:800;
+    min-height:75px;
 }
 
-.simulation-btn:hover{
-  transform:scale(1.03);
+.confidence{
+    height:7px;
+    background:#242a34;
+    border-radius:20px;
+    overflow:hidden;
 }
 
-.simulation-btn:disabled{
-  opacity:.5;
+.confidence-bar{
+    width:0%;
+    height:100%;
+    background:var(--accent);
+    transition:.3s;
 }
 
-.pipeline{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
+.word-box,
+.sentence-box{
+    background:var(--panel2);
+    border:1px solid var(--line);
+    padding:15px;
+    border-radius:12px;
 }
 
-.pipeline-step{
-  min-height:155px;
-  border:1px solid #1d3942;
-  border-radius:16px;
-  padding:20px;
-  background:#0b1b22;
+.word{
+    font-size:25px;
+    font-weight:700;
+    margin-top:5px;
+    min-height:30px;
 }
 
-.pipeline-step.active{
-  border-color:#5de4d0;
-  box-shadow:0 0 20px rgba(93,228,208,.08);
+.sentence{
+    font-size:21px;
+    line-height:1.5;
+    min-height:65px;
+    margin-top:5px;
+}
+
+.controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+}
+
+.control-btn{
+    padding:12px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:#0c1016;
+    color:var(--text);
+    cursor:pointer;
+}
+
+.control-btn:hover{
+    border-color:var(--accent);
+}
+
+.control-btn.end{
+    background:rgba(102,227,180,.12);
+    color:var(--accent);
+}
+
+.control-btn.danger{
+    color:#ff8d8d;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.info-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px;
+}
+
+.info-icon{
+    font-size:28px;
+    margin-bottom:14px;
+}
+
+.info-card h3{
+    margin-bottom:8px;
+}
+
+.info-card p{
+    color:var(--muted);
+    line-height:1.6;
+    font-size:14px;
+}
+
+.alphabet{
+    display:grid;
+    grid-template-columns:repeat(13,1fr);
+    gap:8px;
+}
+
+.letter{
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--text);
+    border-radius:8px;
+    padding:12px 5px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.letter:hover,
+.letter.active{
+    background:var(--accent);
+    color:#06100c;
+}
+
+.history{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:10px;
+}
+
+.history-item{
+    padding:8px 11px;
+    background:#0b0f15;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:13px;
+}
+
+.how{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.step{
+    position:relative;
 }
 
 .step-number{
-  font-size:12px;
-  color:#5de4d0;
-  margin-bottom:12px;
+    color:var(--accent);
+    font-size:12px;
+    margin-bottom:10px;
 }
 
-.pipeline-step h3{
-  font-size:17px;
-  margin-bottom:7px;
+.step h3{
+    margin-bottom:7px;
 }
 
-.pipeline-step p{
-  font-size:13px;
-  color:#829da3;
+.step p{
+    color:var(--muted);
+    line-height:1.5;
+    font-size:14px;
 }
-
-/* SIGNAL ANIMATION */
-
-.signal-area{
-  margin-top:25px;
-  height:105px;
-  border:1px solid #1b333c;
-  border-radius:15px;
-  background:#061015;
-  position:relative;
-  overflow:hidden;
-}
-
-.signal-grid{
-  position:absolute;
-  inset:0;
-
-  background:
-  linear-gradient(rgba(93,228,208,.04) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(93,228,208,.04) 1px,transparent 1px);
-
-  background-size:25px 25px;
-}
-
-.signal-line{
-  position:absolute;
-  top:50%;
-  left:-20%;
-  width:25%;
-  height:3px;
-  background:#5de4d0;
-  box-shadow:0 0 15px #5de4d0;
-  opacity:0;
-}
-
-.signal-line.running{
-  animation:signalMove 1.4s linear infinite;
-  opacity:1;
-}
-
-@keyframes signalMove{
-
-  from{
-    left:-25%;
-  }
-
-  to{
-    left:100%;
-  }
-
-}
-
-.data-particles{
-  position:absolute;
-  inset:0;
-}
-
-.particle{
-  position:absolute;
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:#5de4d0;
-  box-shadow:0 0 10px #5de4d0;
-
-  animation:
-  particleMove 1.8s linear infinite;
-}
-
-@keyframes particleMove{
-
-  from{
-    transform:translateX(-40px);
-    opacity:0;
-  }
-
-  20%{
-    opacity:1;
-  }
-
-  80%{
-    opacity:1;
-  }
-
-  to{
-    transform:translateX(700px);
-    opacity:0;
-  }
-
-}
-
-.progress{
-  height:5px;
-  background:#172b32;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:20px;
-}
-
-.progress-bar{
-  height:100%;
-  width:0%;
-  background:#5de4d0;
-  transition:width .4s;
-}
-
-.simulation-message{
-  margin-top:14px;
-  color:#8da7ad;
-  font-size:13px;
-}
-
-/* DATA */
-
-.data-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-top:25px;
-}
-
-.data-card{
-  background:#0b1a21;
-  border:1px solid #1b333c;
-  border-radius:15px;
-  padding:20px;
-}
-
-.data-label{
-  color:#718b91;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-.data-value{
-  font-size:18px;
-  margin-top:7px;
-}
-
-/* SIGNAL LAB */
-
-.signal-lab{
-  margin-top:45px;
-  background:#09171e;
-  border:1px solid #1b333c;
-  border-radius:24px;
-  padding:28px;
-}
-
-.signal-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin-bottom:25px;
-}
-
-.signal-header h3{
-  font-size:25px;
-}
-
-.signal-header p{
-  color:#819ba1;
-  font-size:14px;
-}
-
-.signal-badge{
-  border:1px solid #31515a;
-  color:#5de4d0;
-  border-radius:30px;
-  padding:7px 12px;
-  font-size:11px;
-  white-space:nowrap;
-}
-
-.signal-layout{
-  display:grid;
-  grid-template-columns:1.5fr 1fr;
-  gap:18px;
-}
-
-.graph-box,
-.raw-data{
-  background:#061015;
-  border:1px solid #1b333c;
-  border-radius:16px;
-  padding:20px;
-}
-
-.graph-title,
-.raw-title{
-  font-size:11px;
-  letter-spacing:2px;
-  color:#718c92;
-  margin-bottom:15px;
-}
-
-.graph{
-  height:220px;
-  position:relative;
-  overflow:hidden;
-
-  background:
-  linear-gradient(rgba(93,228,208,.055) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(93,228,208,.055) 1px,transparent 1px);
-
-  background-size:25px 25px;
-}
-
-.wave{
-  position:absolute;
-  width:200%;
-  height:100%;
-  left:0;
-  top:0;
-  opacity:.9;
-}
-
-.wave svg{
-  width:100%;
-  height:100%;
-}
-
-.wave-path{
-  fill:none;
-  stroke:#5de4d0;
-  stroke-width:2.5;
-  filter:drop-shadow(0 0 5px rgba(93,228,208,.5));
-}
-
-.wave.running{
-  animation:waveMove 2s linear infinite;
-}
-
-@keyframes waveMove{
-
-  from{
-    transform:translateX(0);
-  }
-
-  to{
-    transform:translateX(-25%);
-  }
-
-}
-
-.raw-data{
-  min-height:260px;
-}
-
-.data-stream{
-  font-family:monospace;
-  font-size:12px;
-  color:#75cfc2;
-  line-height:2;
-  height:210px;
-  overflow:hidden;
-}
-
-.data-row{
-  opacity:.7;
-}
-
-.data-row.active{
-  opacity:1;
-}
-
-/* COMPARE */
-
-.compare{
-  overflow-x:auto;
-  border:1px solid #1b333c;
-  border-radius:18px;
-}
-
-table{
-  width:100%;
-  min-width:650px;
-  border-collapse:collapse;
-}
-
-th,td{
-  padding:17px;
-  text-align:left;
-  border-bottom:1px solid #1b333c;
-}
-
-th{
-  color:#5de4d0;
-  background:#0b1a21;
-}
-
-td{
-  color:#a7b9bd;
-}
-
-/* ENGINEERING */
-
-.engineering{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
-
-.engineering-card{
-  background:#0b1a21;
-  border:1px solid #1b333c;
-  border-radius:20px;
-  padding:30px;
-}
-
-.engineering-card h3{
-  margin-bottom:15px;
-}
-
-.engineering-card p{
-  color:#91a9ae;
-}
-
-.engineering-flow{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:10px;
-  margin-top:20px;
-}
-
-.flow-item{
-  padding:9px 12px;
-  border:1px solid #31515a;
-  border-radius:8px;
-  font-size:12px;
-}
-
-.arrow{
-  color:#5de4d0;
-}
-
-/* CHALLENGE */
-
-.challenge{
-  background:#0b1a21;
-  border:1px solid #1b333c;
-  border-radius:22px;
-  padding:30px;
-}
-
-.challenge-options{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin-top:22px;
-}
-
-.challenge-option{
-  padding:15px;
-  border:1px solid #29444c;
-  border-radius:10px;
-  background:#09171e;
-  color:#dce8ea;
-  cursor:pointer;
-  text-align:left;
-}
-
-.challenge-option:hover{
-  border-color:#5de4d0;
-}
-
-.challenge-result{
-  margin-top:18px;
-  color:#5de4d0;
-  font-weight:bold;
-}
-
-/* DISCLAIMER */
 
 .disclaimer{
-  margin:0 7% 70px;
-  padding:20px;
-  border-left:3px solid #5de4d0;
-  background:#0b1a21;
-  color:#829ba0;
-  font-size:13px;
+    margin-top:40px;
+    padding:16px;
+    border:1px solid #403b26;
+    background:#19160c;
+    color:#b9ae87;
+    border-radius:12px;
+    font-size:13px;
+    line-height:1.6;
 }
 
-/* MOBILE */
+footer{
+    max-width:1150px;
+    margin:70px auto 30px;
+    padding:20px;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:13px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.training{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.training-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.training-letter{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:10px;
+}
+
+.training-letter button{
+    background:var(--accent);
+    border:0;
+    border-radius:7px;
+    padding:7px 10px;
+    cursor:pointer;
+}
+
+.training-note{
+    color:var(--muted);
+    line-height:1.6;
+    font-size:14px;
+}
 
 @media(max-width:850px){
 
-  nav{
-    padding:15px 5%;
-  }
+    .workspace{
+        grid-template-columns:1fr;
+    }
 
-  nav div:last-child{
-    display:none;
-  }
+    .info-grid,
+    .how,
+    .training{
+        grid-template-columns:1fr 1fr;
+    }
 
-  .hero{
-    min-height:65vh;
-    padding:60px 5%;
-  }
+    .alphabet{
+        grid-template-columns:repeat(7,1fr);
+    }
 
-  .section{
-    padding:60px 5%;
-  }
-
-  .modality-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .pipeline{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .data-grid{
-    grid-template-columns:1fr;
-  }
-
-  .engineering{
-    grid-template-columns:1fr;
-  }
-
-  .signal-layout{
-    grid-template-columns:1fr;
-  }
-
-  .lab-header{
-    flex-direction:column;
-  }
-
-  .simulator-top{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .simulation-btn{
-    width:100%;
-  }
-
+    .nav-links{
+        display:none;
+    }
 }
 
-@media(max-width:500px){
+@media(max-width:550px){
 
-  h1{
-    font-size:43px;
-  }
+    .hero{
+        padding-top:55px;
+    }
 
-  .modality-grid{
-    grid-template-columns:1fr;
-  }
+    .hero h1{
+        letter-spacing:-2px;
+    }
 
-  .pipeline{
-    grid-template-columns:1fr;
-  }
+    .info-grid,
+    .how,
+    .training{
+        grid-template-columns:1fr;
+    }
 
-  .challenge-options{
-    grid-template-columns:1fr;
-  }
+    .alphabet{
+        grid-template-columns:repeat(6,1fr);
+    }
 
-  .simulator{
-    padding:18px;
-  }
+    .detected{
+        font-size:50px;
+    }
 
-  .signal-lab{
-    padding:18px;
-  }
-
+    footer{
+        flex-direction:column;
+    }
 }
 
 </style>
 </head>
 
-
 <body>
 
-<!-- NAV -->
+<nav class="navbar">
+    <div class="nav-inner">
 
-<nav>
+        <div class="logo">
+            Sign<span>Bridge</span>
+        </div>
 
-  <div class="logo">
-    BIO<span>SCAN</span>
-  </div>
+        <div class="nav-links">
+            <a href="#translator">Translator</a>
+            <a href="#how">How it works</a>
+            <a href="#alphabet">Alphabet</a>
+            <a href="#training">AI Training</a>
+        </div>
 
-  <div>
-    <a href="#modalities">Modalities</a>
-    <a href="#lab">Imaging Lab</a>
-    <a href="#signals">Signal Lab</a>
-    <a href="#compare">Compare</a>
-    <a href="#challenge">Challenge</a>
-  </div>
-
+    </div>
 </nav>
 
 
-<!-- HERO -->
+<header class="hero">
 
-<section class="hero">
-
-  <div class="hero-content">
-
-    <div class="eyebrow">
-      BIOMEDICAL ENGINEERING • MEDICAL IMAGING
+    <div class="badge">
+        ACCESSIBILITY × COMPUTER VISION
     </div>
 
     <h1>
-      Understand how<br>
-      <span>medical images</span><br>
-      are created.
+        Turn signs into
+        <span>words.</span>
     </h1>
 
     <p>
-      BioScan is an interactive educational laboratory exploring
-      the physical principles, sensors, signals and processing
-      behind modern medical imaging technologies.
+        SignBridge is a prototype designed to help bridge communication
+        between people who use sign language and people who do not know it.
+        The system is designed around letter recognition, word building
+        and sentence generation.
     </p>
 
-  </div>
+    <div class="hero-buttons">
 
-</section>
-
-
-<!-- MODALITIES -->
-
-<section class="section" id="modalities">
-
-  <div class="section-title">
-    Imaging Modalities
-  </div>
-
-  <p class="section-subtitle">
-    Select a modality to explore its biomedical imaging pipeline
-    and signal behavior.
-  </p>
-
-
-  <div class="modality-grid">
-
-    <div class="modality active"
-         onclick="selectModality('xray',this)">
-
-      <div class="modality-icon">🩻</div>
-
-      <h3>X-Ray</h3>
-
-      <p>
-        Projection imaging using ionizing radiation.
-      </p>
-
-    </div>
-
-
-    <div class="modality"
-         onclick="selectModality('ct',this)">
-
-      <div class="modality-icon">◉</div>
-
-      <h3>CT</h3>
-
-      <p>
-        Multiple X-Ray measurements reconstructed into sections.
-      </p>
-
-    </div>
-
-
-    <div class="modality"
-         onclick="selectModality('mri',this)">
-
-      <div class="modality-icon">🧲</div>
-
-      <h3>MRI</h3>
-
-      <p>
-        Magnetic fields and RF signals create detailed images.
-      </p>
-
-    </div>
-
-
-    <div class="modality"
-         onclick="selectModality('ultrasound',this)">
-
-      <div class="modality-icon">〰</div>
-
-      <h3>Ultrasound</h3>
-
-      <p>
-        Sound pulses and echoes create real-time images.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- IMAGING LAB -->
-
-<section class="section" id="lab">
-
-  <div class="section-title">
-    Imaging Lab
-  </div>
-
-  <p class="section-subtitle">
-    Follow the transformation from a physical phenomenon
-    to a medical image.
-  </p>
-
-
-  <div class="lab">
-
-    <div class="lab-header">
-
-      <div>
-
-        <div class="lab-title" id="labTitle">
-          X-Ray Imaging Pipeline
-        </div>
-
-        <div class="lab-description" id="labDescription">
-          X-Ray systems use ionizing radiation to create projection
-          images. A detector converts transmitted radiation into
-          a measurable digital signal.
-        </div>
-
-      </div>
-
-
-      <div class="lab-status" id="labStatus">
-        READY
-      </div>
-
-    </div>
-
-
-    <div class="simulator">
-
-      <div class="simulator-top">
-
-        <div>
-
-          <div class="simulator-label">
-            EDUCATIONAL SIMULATION
-          </div>
-
-          <strong id="simulationType">
-            X-RAY SIGNAL PATH
-          </strong>
-
-        </div>
-
-
-        <button
-          class="simulation-btn"
-          id="simulationBtn"
-          onclick="startSimulation()">
-
-          ▶ START SIMULATION
-
+        <button class="btn btn-primary"
+                onclick="scrollToTranslator()">
+            START SIGNING
         </button>
 
-      </div>
-
-
-      <div class="pipeline">
-
-        <div class="pipeline-step" id="step1">
-
-          <div class="step-number">01</div>
-
-          <h3 id="step1Title">
-            Source
-          </h3>
-
-          <p id="step1Text">
-            An X-Ray tube generates photons.
-          </p>
-
-        </div>
-
-
-        <div class="pipeline-step" id="step2">
-
-          <div class="step-number">02</div>
-
-          <h3 id="step2Title">
-            Detector
-          </h3>
-
-          <p id="step2Text">
-            The detector receives transmitted X-Rays.
-          </p>
-
-        </div>
-
-
-        <div class="pipeline-step" id="step3">
-
-          <div class="step-number">03</div>
-
-          <h3 id="step3Title">
-            Processing
-          </h3>
-
-          <p id="step3Text">
-            Electronic signals are converted and processed.
-          </p>
-
-        </div>
-
-
-        <div class="pipeline-step" id="step4">
-
-          <div class="step-number">04</div>
-
-          <h3 id="step4Title">
-            Image
-          </h3>
-
-          <p id="step4Text">
-            A digital projection image is produced.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="signal-area">
-
-        <div class="signal-grid"></div>
-
-        <div class="signal-line"
-             id="signalLine">
-        </div>
-
-        <div class="data-particles"
-             id="particles">
-        </div>
-
-      </div>
-
-
-      <div class="progress">
-
-        <div class="progress-bar"
-             id="progressBar">
-        </div>
-
-      </div>
-
-
-      <div class="simulation-message"
-           id="simulationMessage">
-
-        Simulation ready. Select a modality and start the process.
-
-      </div>
+        <button class="btn btn-secondary"
+                onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">
+            HOW IT WORKS
+        </button>
 
     </div>
 
+</header>
 
-    <div class="data-grid">
 
-      <div class="data-card">
+<main class="container">
 
-        <div class="data-label">
-          Physical Principle
+
+<section class="section" id="translator">
+
+    <h2 class="section-title">
+        Sign Translator
+    </h2>
+
+    <p class="section-subtitle">
+        Show a hand sign to the camera. The system is designed to identify
+        letters, build words and store completed words in a sentence.
+    </p>
+
+
+    <div class="workspace">
+
+
+        <div class="card camera-card">
+
+            <video
+                id="camera"
+                class="camera"
+                autoplay
+                playsinline
+                muted>
+            </video>
+
+            <div class="camera-overlay">
+
+                <div class="corner c1"></div>
+                <div class="corner c2"></div>
+                <div class="corner c3"></div>
+                <div class="corner c4"></div>
+
+            </div>
+
+            <div class="camera-status">
+
+                <span id="cameraStatus">
+                    Camera inactive
+                </span>
+
+                <span class="status-live">
+                    ● LIVE SYSTEM
+                </span>
+
+            </div>
+
         </div>
 
-        <div class="data-value"
-             id="principle">
-          X-Rays
+
+        <div class="card result-card">
+
+            <div>
+
+                <div class="result-label">
+                    Detected letter
+                </div>
+
+                <div id="detectedLetter"
+                     class="detected">
+                    —
+                </div>
+
+                <div class="confidence">
+                    <div id="confidenceBar"
+                         class="confidence-bar">
+                    </div>
+                </div>
+
+                <div id="confidenceText"
+                     style="color:#8993a3;font-size:12px;margin-top:6px;">
+                    Waiting for recognition
+                </div>
+
+            </div>
+
+
+            <div class="word-box">
+
+                <div class="result-label">
+                    Current word
+                </div>
+
+                <div id="currentWord"
+                     class="word">
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="sentence-box">
+
+                <div class="result-label">
+                    Sentence
+                </div>
+
+                <div id="sentence"
+                     class="sentence">
+                    —
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div class="result-label">
+                    Actions
+                </div>
+
+                <div class="controls">
+
+                    <button
+                        class="control-btn"
+                        onclick="deleteLetter()">
+                        ← DELETE
+                    </button>
+
+                    <button
+                        class="control-btn end"
+                        onclick="endWord()">
+                        SPACE / END WORD
+                    </button>
+
+                    <button
+                        class="control-btn"
+                        onclick="clearWord()">
+                        CLEAR WORD
+                    </button>
+
+                    <button
+                        class="control-btn end"
+                        onclick="endSentence()">
+                        END SENTENCE
+                    </button>
+
+                    <button
+                        class="control-btn danger"
+                        onclick="clearAll()">
+                        CLEAR ALL
+                    </button>
+
+                    <button
+                        class="control-btn"
+                        onclick="speakSentence()">
+                        🔊 SPEAK
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div class="result-label">
+                    Recognized words
+                </div>
+
+                <div id="history"
+                     class="history">
+                </div>
+
+            </div>
+
         </div>
-
-      </div>
-
-
-      <div class="data-card">
-
-        <div class="data-label">
-          Ionizing Radiation
-        </div>
-
-        <div class="data-value"
-             id="radiation">
-          YES
-        </div>
-
-      </div>
-
-
-      <div class="data-card">
-
-        <div class="data-label">
-          Main Strength
-        </div>
-
-        <div class="data-value"
-             id="strength">
-          Bones
-        </div>
-
-      </div>
 
     </div>
-
-  </div>
 
 </section>
 
 
-<!-- SIGNAL LAB -->
 
-<section class="section" id="signals">
+<section class="section" id="how">
 
-  <div class="section-title">
-    Signal Lab
-  </div>
+    <h2 class="section-title">
+        How SignBridge works
+    </h2>
 
-  <p class="section-subtitle">
-    Explore a simplified visualization of the signal and raw data
-    generated by the selected imaging modality.
-  </p>
+    <p class="section-subtitle">
+        The concept follows a simple communication pipeline.
+    </p>
 
 
-  <div class="signal-lab">
+    <div class="how">
 
-    <div class="signal-header">
+        <div class="card step">
 
-      <div>
+            <div class="step-number">
+                01 / CAMERA
+            </div>
 
-        <h3 id="signalTitle">
-          X-Ray Signal
-        </h3>
+            <h3>Capture</h3>
 
-        <p id="signalDescription">
-          Simplified representation of detector signal generated
-          from transmitted X-Ray photons.
-        </p>
+            <p>
+                The smartphone camera captures the user's hand.
+            </p>
 
-      </div>
+        </div>
 
 
-      <div class="signal-badge">
-        LIVE VISUALIZATION
-      </div>
+        <div class="card step">
+
+            <div class="step-number">
+                02 / VISION
+            </div>
+
+            <h3>Analyze</h3>
+
+            <p>
+                Computer vision extracts the position of the hand
+                and its landmarks.
+            </p>
+
+        </div>
+
+
+        <div class="card step">
+
+            <div class="step-number">
+                03 / LETTER
+            </div>
+
+            <h3>Recognize</h3>
+
+            <p>
+                A trained classifier determines which letter
+                corresponds to the hand configuration.
+            </p>
+
+        </div>
+
+
+        <div class="card step">
+
+            <div class="step-number">
+                04 / LANGUAGE
+            </div>
+
+            <h3>Build</h3>
+
+            <p>
+                Letters become words, words become sentences,
+                and the final sentence can be spoken aloud.
+            </p>
+
+        </div>
 
     </div>
-
-
-    <div class="signal-layout">
-
-
-      <!-- GRAPH -->
-
-      <div class="graph-box">
-
-        <div class="graph-title">
-          SIGNAL WAVEFORM
-        </div>
-
-        <div class="graph">
-
-          <div class="wave"
-               id="wave">
-
-            <svg viewBox="0 0 1000 220"
-                 preserveAspectRatio="none">
-
-              <path
-                id="wavePath"
-                class="wave-path"
-                d="M0 110
-                   L30 110
-                   L45 70
-                   L60 150
-                   L75 110
-                   L100 110
-                   L115 55
-                   L130 165
-                   L145 110
-                   L180 110
-                   L195 80
-                   L210 140
-                   L225 110
-                   L260 110
-                   L275 45
-                   L290 175
-                   L305 110
-                   L340 110
-                   L355 75
-                   L370 145
-                   L385 110
-                   L420 110
-                   L435 60
-                   L450 160
-                   L465 110
-                   L500 110
-                   L515 80
-                   L530 140
-                   L545 110
-                   L580 110
-                   L595 50
-                   L610 170
-                   L625 110
-                   L660 110
-                   L675 75
-                   L690 145
-                   L705 110
-                   L740 110
-                   L755 60
-                   L770 160
-                   L785 110
-                   L820 110
-                   L835 80
-                   L850 140
-                   L865 110
-                   L900 110
-                   L915 55
-                   L930 165
-                   L945 110
-                   L1000 110">
-              </path>
-
-            </svg>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- RAW DATA -->
-
-      <div class="raw-data">
-
-        <div class="raw-title">
-          RAW DATA STREAM
-        </div>
-
-        <div class="data-stream"
-             id="dataStream">
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
 
 </section>
 
 
-<!-- COMPARISON -->
 
-<section class="section" id="compare">
+<section class="section" id="alphabet">
 
-  <div class="section-title">
-    Modality Comparison
-  </div>
+    <h2 class="section-title">
+        Alphabet
+    </h2>
 
-  <p class="section-subtitle">
-    A simplified technical comparison of the four imaging technologies.
-  </p>
+    <p class="section-subtitle">
+        The prototype currently uses the alphabet as the fundamental
+        building block of communication.
+    </p>
 
 
-  <div class="compare">
-
-    <table>
-
-      <tr>
-        <th>Modality</th>
-        <th>Principle</th>
-        <th>Radiation</th>
-        <th>Common Strength</th>
-      </tr>
-
-      <tr>
-        <td>X-Ray</td>
-        <td>Ionizing X-Rays</td>
-        <td>Yes</td>
-        <td>Bones</td>
-      </tr>
-
-      <tr>
-        <td>CT</td>
-        <td>X-Rays + Computing</td>
-        <td>Yes</td>
-        <td>Cross-sectional imaging</td>
-      </tr>
-
-      <tr>
-        <td>MRI</td>
-        <td>Magnetic field + RF</td>
-        <td>No ionizing radiation</td>
-        <td>Soft tissue</td>
-      </tr>
-
-      <tr>
-        <td>Ultrasound</td>
-        <td>High-frequency sound</td>
-        <td>No ionizing radiation</td>
-        <td>Real-time imaging</td>
-      </tr>
-
-    </table>
-
-  </div>
+    <div id="alphabetGrid"
+         class="alphabet">
+    </div>
 
 </section>
 
 
-<!-- ENGINEERING -->
 
 <section class="section">
 
-  <div class="section-title">
-    Where Biomedical Engineering Fits
-  </div>
+    <h2 class="section-title">
+        Word Builder
+    </h2>
 
-  <p class="section-subtitle">
-    Medical imaging combines physics, electronics,
-    signal processing, computing and healthcare.
-  </p>
-
-
-  <div class="engineering">
-
-    <div class="engineering-card">
-
-      <h3>
-        From Physics to Image
-      </h3>
-
-      <p>
-        Biomedical engineers work at the intersection of physical
-        phenomena, sensors, electronics, algorithms and medical systems.
-      </p>
+    <p class="section-subtitle">
+        The key idea: the user does not need to perform an entire word at once.
+        Each recognized letter is added to the current word. A dedicated
+        end-word action saves the word and moves to the next one.
+    </p>
 
 
-      <div class="engineering-flow">
+    <div class="card">
 
-        <div class="flow-item">
-          Physical phenomenon
+        <div style="font-size:14px;color:#8993a3;margin-bottom:10px;">
+            Example
         </div>
 
-        <div class="arrow">→</div>
-
-        <div class="flow-item">
-          Sensor
+        <div style="font-size:24px;font-weight:700;">
+            H → E → L → P
         </div>
 
-        <div class="arrow">→</div>
-
-        <div class="flow-item">
-          Signal
+        <div style="margin:12px 0;color:#66e3b4;">
+            ↓ END WORD
         </div>
 
-        <div class="arrow">→</div>
-
-        <div class="flow-item">
-          Processing
+        <div style="font-size:24px;font-weight:700;">
+            HELP
         </div>
 
-        <div class="arrow">→</div>
-
-        <div class="flow-item">
-          Medical image
+        <div style="margin:12px 0;color:#8993a3;">
+            ↓ next word
         </div>
 
-      </div>
+        <div style="font-size:24px;font-weight:700;">
+            I → ...
+        </div>
 
     </div>
-
-
-    <div class="engineering-card">
-
-      <h3>
-        Skills Behind the System
-      </h3>
-
-      <p>
-        Imaging systems require knowledge of instrumentation,
-        electronics, programming, signal processing, physics,
-        data analysis and medical technology.
-      </p>
-
-
-      <div class="engineering-flow">
-
-        <div class="flow-item">
-          Electronics
-        </div>
-
-        <div class="flow-item">
-          Programming
-        </div>
-
-        <div class="flow-item">
-          Signal Processing
-        </div>
-
-        <div class="flow-item">
-          Physics
-        </div>
-
-        <div class="flow-item">
-          Medical Devices
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
 
 </section>
 
 
-<!-- CHALLENGE -->
 
-<section class="section"
-         id="challenge">
+<section class="section" id="training">
 
-  <div class="section-title">
-    Biomedical Challenge
-  </div>
+    <h2 class="section-title">
+        AI Training
+    </h2>
 
-  <p class="section-subtitle">
-    Test your understanding of the physical principles behind imaging.
-  </p>
-
-
-  <div class="challenge">
-
-    <h3>
-      Which modality uses a strong magnetic field
-      and radio-frequency waves?
-    </h3>
+    <p class="section-subtitle">
+        A real A–Z recognition system requires a trained classifier.
+        This section prepares the project for collecting hand-landmark
+        examples for each letter.
+    </p>
 
 
-    <div class="challenge-options">
+    <div class="training">
 
-      <button class="challenge-option"
-              onclick="challenge('X-Ray')">
-        X-Ray
-      </button>
+        <div class="card">
 
-      <button class="challenge-option"
-              onclick="challenge('CT')">
-        CT
-      </button>
+            <h3 style="margin-bottom:12px;">
+                Dataset concept
+            </h3>
 
-      <button class="challenge-option"
-              onclick="challenge('MRI')">
-        MRI
-      </button>
+            <p class="training-note">
+                For every letter, collect multiple examples of the hand
+                configuration from different positions, distances and
+                lighting conditions. The model can then learn the
+                relationship between hand landmarks and the letter.
+            </p>
 
-      <button class="challenge-option"
-              onclick="challenge('Ultrasound')">
-        Ultrasound
-      </button>
+            <br>
+
+            <button
+                class="btn btn-primary"
+                onclick="showTrainingMessage()">
+                START DATA COLLECTION
+            </button>
+
+            <p id="trainingMessage"
+               class="training-note"
+               style="margin-top:15px;">
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3 style="margin-bottom:12px;">
+                Classes
+            </h3>
+
+            <div id="trainingList"
+                 class="training-list">
+            </div>
+
+        </div>
 
     </div>
 
+</section>
 
-    <div class="challenge-result"
-         id="challengeResult">
+
+
+<section class="section">
+
+    <div class="info-grid">
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                🤟
+            </div>
+
+            <h3>Sign → Letter</h3>
+
+            <p>
+                The core recognition task converts a hand configuration
+                into an alphabet character.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                🧩
+            </div>
+
+            <h3>Letter → Word</h3>
+
+            <p>
+                Letters are accumulated until the user indicates
+                that the current word is complete.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="info-icon">
+                🔊
+            </div>
+
+            <h3>Sentence → Voice</h3>
+
+            <p>
+                The completed sentence can be converted into speech
+                using the smartphone browser.
+            </p>
+
+        </div>
+
     </div>
-
-  </div>
 
 </section>
 
 
 <div class="disclaimer">
 
-  BioScan is an educational visualization project.
-  It is not a medical diagnostic tool and does not replace
-  professional medical advice.
+<strong>Prototype notice:</strong>
+SignBridge is an accessibility and communication prototype.
+It is not a certified medical device, diagnostic system or professional
+sign-language interpretation service. Recognition accuracy depends on
+the training dataset, camera conditions and the sign-language system used.
 
 </div>
 
 
+</main>
+
+
+<footer>
+
+    <span>
+        SignBridge — Accessibility through Computer Vision
+    </span>
+
+    <span>
+        Biomedical Engineering Project • 2026
+    </span>
+
+</footer>
+
+
 <script>
 
-/* =========================
-   MODALITY DATA
-========================= */
+/* =========================================================
+   SIGNBRIDGE
+   Communication Engine
+   ========================================================= */
 
-const modalityData = {
 
-  xray:{
+/* -----------------------------
+   GLOBAL STATE
+----------------------------- */
 
-    title:"X-Ray Imaging Pipeline",
+let currentWord = "";
+let sentenceWords = [];
 
-    description:
-    "X-Ray systems use ionizing radiation to create projection images. A detector converts transmitted radiation into a measurable digital signal.",
+let cameraStream = null;
 
-    type:"X-RAY SIGNAL PATH",
 
-    steps:[
+/* -----------------------------
+   DOM ELEMENTS
+----------------------------- */
 
-      ["Source","An X-Ray tube generates photons."],
+const video = document.getElementById("camera");
 
-      ["Detector","The detector receives transmitted X-Rays."],
+const detectedLetter =
+    document.getElementById("detectedLetter");
 
-      ["Processing","Electronic signals are converted and processed."],
+const currentWordElement =
+    document.getElementById("currentWord");
 
-      ["Image","A digital projection image is produced."]
+const sentenceElement =
+    document.getElementById("sentence");
 
-    ],
+const confidenceBar =
+    document.getElementById("confidenceBar");
 
-    principle:"X-Rays",
+const confidenceText =
+    document.getElementById("confidenceText");
 
-    radiation:"YES",
+const historyElement =
+    document.getElementById("history");
 
-    strength:"Bones",
+const cameraStatus =
+    document.getElementById("cameraStatus");
 
-    signalTitle:"X-Ray Signal",
 
-    signalDescription:
-    "Simplified representation of detector signal generated from transmitted X-Ray photons."
+/* -----------------------------
+   CAMERA
+----------------------------- */
 
-  },
+async function startCamera(){
 
+    try{
 
-  ct:{
+        cameraStream =
+            await navigator.mediaDevices.getUserMedia({
+                video:{
+                    facingMode:"user"
+                },
+                audio:false
+            });
 
-    title:"CT Imaging Pipeline",
+        video.srcObject = cameraStream;
 
-    description:
-    "CT collects measurements from multiple X-Ray angles and uses computer reconstruction to create cross-sectional images.",
-
-    type:"ROTATION → MEASUREMENT → RECONSTRUCTION",
-
-    steps:[
-
-      ["Rotating Source","An X-Ray source rotates around the subject."],
-
-      ["Detector Array","Detectors collect measurements from multiple angles."],
-
-      ["Reconstruction","A computer reconstructs the measurements."],
-
-      ["Image","Cross-sectional images are generated."]
-
-    ],
-
-    principle:"X-Rays + Computing",
-
-    radiation:"YES",
-
-    strength:"Cross-sections",
-
-    signalTitle:"CT Measurement Signal",
-
-    signalDescription:
-    "Simplified representation of measurements acquired from multiple projection angles."
-
-  },
-
-
-  mri:{
-
-    title:"MRI Imaging Pipeline",
-
-    description:
-    "MRI uses a strong magnetic field and radio-frequency waves to generate signals that are processed into detailed images.",
-
-    type:"MAGNETIC FIELD → RF → SIGNAL → IMAGE",
-
-    steps:[
-
-      ["Magnetic Field","A strong magnetic field interacts with tissue."],
-
-      ["RF Excitation","Radio-frequency energy excites the system."],
-
-      ["Receiver Coil","Signals are detected by receiver coils."],
-
-      ["Reconstruction","Computer processing creates the image."]
-
-    ],
-
-    principle:"Magnetic Field + RF",
-
-    radiation:"NO",
-
-    strength:"Soft Tissue",
-
-    signalTitle:"MRI RF Signal",
-
-    signalDescription:
-    "Simplified visualization of an RF-related signal acquired by receiver coils."
-
-  },
-
-
-  ultrasound:{
-
-    title:"Ultrasound Imaging Pipeline",
-
-    description:
-    "Ultrasound uses high-frequency sound waves. A transducer sends pulses and receives echoes that are processed into an image.",
-
-    type:"PULSE → ECHO → SIGNAL → IMAGE",
-
-    steps:[
-
-      ["Pulse","A transducer sends sound pulses."],
-
-      ["Propagation","Sound waves travel through tissue."],
-
-      ["Echo","Echoes return to the transducer."],
-
-      ["Image","The system processes echoes into an image."]
-
-    ],
-
-    principle:"Sound Waves",
-
-    radiation:"NO",
-
-    strength:"Real-Time Imaging",
-
-    signalTitle:"Ultrasound Echo Signal",
-
-    signalDescription:
-    "Simplified representation of returning echoes detected by the ultrasound transducer."
-
-  }
-
-};
-
-
-let currentModality="xray";
-
-let simulationRunning=false;
-
-let simulationTimer=null;
-
-
-/* =========================
-   SELECT MODALITY
-========================= */
-
-function selectModality(type,element){
-
-  currentModality=type;
-
-  document
-  .querySelectorAll(".modality")
-  .forEach(card =>
-    card.classList.remove("active")
-  );
-
-  element.classList.add("active");
-
-  const data=modalityData[type];
-
-
-  document.getElementById("labTitle")
-  .textContent=data.title;
-
-
-  document.getElementById("labDescription")
-  .textContent=data.description;
-
-
-  document.getElementById("simulationType")
-  .textContent=data.type;
-
-
-  document.getElementById("principle")
-  .textContent=data.principle;
-
-
-  document.getElementById("radiation")
-  .textContent=data.radiation;
-
-
-  document.getElementById("strength")
-  .textContent=data.strength;
-
-
-  document.getElementById("signalTitle")
-  .textContent=data.signalTitle;
-
-
-  document.getElementById("signalDescription")
-  .textContent=data.signalDescription;
-
-
-  for(let i=1;i<=4;i++){
-
-    document.getElementById(
-      "step"+i+"Title"
-    ).textContent=data.steps[i-1][0];
-
-    document.getElementById(
-      "step"+i+"Text"
-    ).textContent=data.steps[i-1][1];
-
-  }
-
-
-  updateWave(type);
-
-  generateRawData(type);
-
-  resetSimulation();
-
-}
-
-
-/* =========================
-   SIGNAL WAVE
-========================= */
-
-function updateWave(type){
-
-  const path=
-    document.getElementById("wavePath");
-
-
-  if(type==="xray"){
-
-    path.setAttribute(
-      "d",
-      `M0 110
-       L30 110 L45 70 L60 150 L75 110
-       L110 110 L125 60 L140 160 L155 110
-       L190 110 L205 80 L220 140 L235 110
-       L270 110 L285 55 L300 165 L315 110
-       L350 110 L365 75 L380 145 L395 110
-       L430 110 L445 65 L460 155 L475 110
-       L510 110 L525 50 L540 170 L555 110
-       L600 110 L615 75 L630 145 L645 110
-       L680 110 L695 60 L710 160 L725 110
-       L760 110 L775 80 L790 140 L805 110
-       L850 110 L865 55 L880 165 L895 110
-       L940 110 L955 75 L970 145 L985 110
-       L1000 110`
-    );
-
-  }
-
-
-  else if(type==="ct"){
-
-    path.setAttribute(
-      "d",
-      `M0 110
-       L100 110
-       L120 40 L135 180 L150 110
-       L250 110
-       L270 55 L285 165 L300 110
-       L400 110
-       L420 30 L435 190 L450 110
-       L550 110
-       L570 50 L585 170 L600 110
-       L700 110
-       L720 35 L735 185 L750 110
-       L850 110
-       L870 55 L885 165 L900 110
-       L1000 110`
-    );
-
-  }
-
-
-  else if(type==="mri"){
-
-    path.setAttribute(
-      "d",
-      `M0 110
-       Q40 40 80 110
-       T160 110
-       T240 110
-       T320 110
-       T400 110
-       T480 110
-       T560 110
-       T640 110
-       T720 110
-       T800 110
-       T880 110
-       T960 110
-       T1000 110`
-    );
-
-  }
-
-
-  else{
-
-    path.setAttribute(
-      "d",
-      `M0 110
-       Q30 80 60 110
-       Q90 140 120 110
-       Q150 75 180 110
-       Q210 145 240 110
-       Q270 70 300 110
-       Q330 150 360 110
-       Q390 75 420 110
-       Q450 145 480 110
-       Q510 70 540 110
-       Q570 150 600 110
-       Q630 75 660 110
-       Q690 145 720 110
-       Q750 70 780 110
-       Q810 150 840 110
-       Q870 75 900 110
-       Q930 145 960 110
-       Q980 90 1000 110`
-    );
-
-  }
-
-}
-
-
-/* =========================
-   RAW DATA
-========================= */
-
-function generateRawData(type){
-
-  const container=
-    document.getElementById("dataStream");
-
-  container.innerHTML="";
-
-  let prefix="";
-
-  if(type==="xray"){
-    prefix="XR";
-  }
-
-  if(type==="ct"){
-    prefix="CT";
-  }
-
-  if(type==="mri"){
-    prefix="RF";
-  }
-
-  if(type==="ultrasound"){
-    prefix="US";
-  }
-
-
-  for(let i=0;i<35;i++){
-
-    const row=
-      document.createElement("div");
-
-    row.className="data-row";
-
-    const value=
-      Math.floor(
-        Math.random()*900
-      )+100;
-
-    row.textContent=
-      prefix+
-      "_DATA["+
-      String(i).padStart(2,"0")+
-      "]  =  "+
-      value;
-
-    container.appendChild(row);
-
-  }
-
-
-  animateRawData();
-
-}
-
-
-function animateRawData(){
-
-  const rows=
-    document.querySelectorAll(".data-row");
-
-  let index=0;
-
-  setInterval(()=>{
-
-    rows.forEach(row =>
-      row.classList.remove("active")
-    );
-
-    if(rows[index]){
-      rows[index]
-      .classList.add("active");
-    }
-
-    index++;
-
-    if(index>=rows.length){
-      index=0;
-    }
-
-  },250);
-
-}
-
-
-/* =========================
-   PARTICLES
-========================= */
-
-function createParticles(){
-
-  const container=
-    document.getElementById("particles");
-
-  container.innerHTML="";
-
-
-  for(let i=0;i<18;i++){
-
-    const p=
-      document.createElement("div");
-
-    p.className="particle";
-
-    p.style.top=
-      Math.floor(
-        Math.random()*85+5
-      )+"%";
-
-    p.style.animationDelay=
-      Math.random()*1.5+"s";
-
-    p.style.animationDuration=
-      1.2+
-      Math.random()*1.5+
-      "s";
-
-    container.appendChild(p);
-
-  }
-
-}
-
-
-/* =========================
-   RESET SIMULATION
-========================= */
-
-function resetSimulation(){
-
-  clearTimeout(simulationTimer);
-
-  simulationRunning=false;
-
-
-  document.getElementById(
-    "progressBar"
-  ).style.width="0%";
-
-
-  document.getElementById(
-    "simulationMessage"
-  ).textContent=
-    "Simulation ready. Select a modality and start the process.";
-
-
-  document.getElementById(
-    "labStatus"
-  ).textContent="READY";
-
-
-  const btn=
-    document.getElementById(
-      "simulationBtn"
-    );
-
-  btn.disabled=false;
-
-  btn.textContent=
-    "▶ START SIMULATION";
-
-
-  document.getElementById(
-    "signalLine"
-  ).classList.remove("running");
-
-
-  document
-  .querySelectorAll(".pipeline-step")
-  .forEach(step =>
-    step.classList.remove("active")
-  );
-
-}
-
-
-/* =========================
-   START SIMULATION
-========================= */
-
-function startSimulation(){
-
-  if(simulationRunning)
-    return;
-
-
-  simulationRunning=true;
-
-
-  const btn=
-    document.getElementById(
-      "simulationBtn"
-    );
-
-  const status=
-    document.getElementById(
-      "labStatus"
-    );
-
-  const message=
-    document.getElementById(
-      "simulationMessage"
-    );
-
-  const progress=
-    document.getElementById(
-      "progressBar"
-    );
-
-  const line=
-    document.getElementById(
-      "signalLine"
-    );
-
-
-  btn.disabled=true;
-
-  status.textContent="RUNNING";
-
-  line.classList.add("running");
-
-
-  document
-  .querySelectorAll(".pipeline-step")
-  .forEach(step =>
-    step.classList.remove("active")
-  );
-
-
-  let step=0;
-
-
-  function nextStep(){
-
-    if(step>0){
-
-      document
-      .getElementById(
-        "step"+step
-      )
-      .classList.remove("active");
+        cameraStatus.textContent =
+            "Camera active";
 
     }
 
+    catch(error){
 
-    if(step>=4){
+        cameraStatus.textContent =
+            "Camera permission required";
 
-      progress.style.width="100%";
-
-      status.textContent="COMPLETE";
-
-      message.textContent=
-        "Simulation complete — physical information has been transformed into a medical image.";
-
-      line.classList.remove("running");
-
-      btn.disabled=false;
-
-      btn.textContent=
-        "↻ RUN AGAIN";
-
-      simulationRunning=false;
-
-      return;
+        console.error(error);
 
     }
 
+}
 
-    step++;
 
+/* -----------------------------
+   SCROLL
+----------------------------- */
+
+function scrollToTranslator(){
 
     document
-    .getElementById(
-      "step"+step
-    )
-    .classList.add("active");
+        .getElementById("translator")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
 
-
-    progress.style.width=
-      (step/4*100)+"%";
-
-
-    const messages=[
-
-      "Acquiring physical information...",
-
-      "Detecting the signal...",
-
-      "Processing raw data...",
-
-      "Generating the image..."
-
-    ];
-
-
-    message.textContent=
-      messages[step-1];
-
-
-    simulationTimer=
-      setTimeout(
-        nextStep,
-        1100
-      );
-
-  }
-
-
-  nextStep();
+    startCamera();
 
 }
 
 
-/* =========================
-   CHALLENGE
-========================= */
+/* -----------------------------
+   ADD LETTER
+----------------------------- */
 
-function challenge(answer){
+function addLetter(letter){
 
-  const result=
-    document.getElementById(
-      "challengeResult"
+    if(!letter) return;
+
+    currentWord += letter;
+
+    updateDisplay();
+
+    highlightLetter(letter);
+
+}
+
+
+/* -----------------------------
+   DELETE
+----------------------------- */
+
+function deleteLetter(){
+
+    if(currentWord.length === 0)
+        return;
+
+    currentWord =
+        currentWord.slice(0,-1);
+
+    updateDisplay();
+
+}
+
+
+/* -----------------------------
+   END WORD
+----------------------------- */
+
+function endWord(){
+
+    if(currentWord.trim() === "")
+        return;
+
+    sentenceWords.push(
+        currentWord.trim()
     );
 
+    currentWord = "";
 
-  if(answer==="MRI"){
+    updateDisplay();
 
-    result.textContent=
-      "✓ Correct — MRI uses a strong magnetic field and radio-frequency waves.";
-
-  }
-
-  else{
-
-    result.textContent=
-      "Not quite. Think about magnetic fields and RF signals.";
-
-  }
+    updateHistory();
 
 }
 
 
-/* =========================
+/* -----------------------------
+   END SENTENCE
+----------------------------- */
+
+function endSentence(){
+
+    if(currentWord.trim() !== ""){
+
+        sentenceWords.push(
+            currentWord.trim()
+        );
+
+        currentWord = "";
+
+    }
+
+    updateDisplay();
+
+    updateHistory();
+
+    speakSentence();
+
+}
+
+
+/* -----------------------------
+   CLEAR WORD
+----------------------------- */
+
+function clearWord(){
+
+    currentWord = "";
+
+    updateDisplay();
+
+}
+
+
+/* -----------------------------
+   CLEAR ALL
+----------------------------- */
+
+function clearAll(){
+
+    currentWord = "";
+
+    sentenceWords = [];
+
+    detectedLetter.textContent = "—";
+
+    confidenceBar.style.width = "0%";
+
+    confidenceText.textContent =
+        "Waiting for recognition";
+
+    updateDisplay();
+
+    updateHistory();
+
+}
+
+
+/* -----------------------------
+   DISPLAY
+----------------------------- */
+
+function updateDisplay(){
+
+    currentWordElement.textContent =
+        currentWord || "—";
+
+    sentenceElement.textContent =
+        sentenceWords.length
+            ? sentenceWords.join(" ")
+            : "—";
+
+}
+
+
+/* -----------------------------
+   HISTORY
+----------------------------- */
+
+function updateHistory(){
+
+    historyElement.innerHTML = "";
+
+    sentenceWords.forEach(
+        word => {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "history-item";
+
+            item.textContent =
+                word;
+
+            historyElement.appendChild(item);
+
+        }
+    );
+
+}
+
+
+/* -----------------------------
+   SPEECH
+----------------------------- */
+
+function speakSentence(){
+
+    const text =
+        sentenceWords.join(" ");
+
+    if(!text)
+        return;
+
+    if(!("speechSynthesis" in window)){
+
+        alert(
+            "Text-to-speech is not supported by this browser."
+        );
+
+        return;
+
+    }
+
+    const utterance =
+        new SpeechSynthesisUtterance(text);
+
+    utterance.lang = "en-US";
+
+    utterance.rate = .9;
+
+    window.speechSynthesis.cancel();
+
+    window.speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+/* -----------------------------
+   ALPHABET
+----------------------------- */
+
+const letters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+const alphabetGrid =
+    document.getElementById(
+        "alphabetGrid"
+    );
+
+letters.forEach(
+    letter => {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "letter";
+
+        button.textContent =
+            letter;
+
+        button.onclick = () =>
+            addLetter(letter);
+
+        alphabetGrid.appendChild(button);
+
+    }
+);
+
+
+/* -----------------------------
+   HIGHLIGHT
+----------------------------- */
+
+function highlightLetter(letter){
+
+    document
+        .querySelectorAll(".letter")
+        .forEach(
+            element => {
+
+                element.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+    const target =
+        [...document.querySelectorAll(".letter")]
+        .find(
+            element =>
+                element.textContent === letter
+        );
+
+    if(target){
+
+        target.classList.add("active");
+
+        setTimeout(
+            () => {
+                target.classList.remove("active");
+            },
+            500
+        );
+
+    }
+
+}
+
+
+/* -----------------------------
+   DEMO RECOGNITION
+-----------------------------
+
+This function is intentionally separated
+from the communication engine.
+
+Later the trained AI classifier will call:
+
+addLetter(predictedLetter)
+
+instead of this demo function.
+----------------------------- */
+
+
+/*
+   Example:
+
+   AI prediction:
+
+   const predictedLetter = "A";
+
+   addLetter(predictedLetter);
+
+*/
+
+
+/* -----------------------------
+   TRAINING
+----------------------------- */
+
+const trainingList =
+    document.getElementById(
+        "trainingList"
+    );
+
+letters.forEach(
+    letter => {
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "training-letter";
+
+        row.innerHTML = `
+            <strong>${letter}</strong>
+            <button onclick="selectTrainingLetter('${letter}')">
+                COLLECT
+            </button>
+        `;
+
+        trainingList.appendChild(row);
+
+    }
+);
+
+
+function selectTrainingLetter(letter){
+
+    const message =
+        document.getElementById(
+            "trainingMessage"
+        );
+
+    message.textContent =
+        "Selected class: " +
+        letter +
+        ". The next stage will collect hand landmarks for this class.";
+
+}
+
+
+function showTrainingMessage(){
+
+    const message =
+        document.getElementById(
+            "trainingMessage"
+        );
+
+    message.textContent =
+        "Training mode prepared. The AI dataset will contain hand-landmark samples for A–Z.";
+
+}
+
+
+/* -----------------------------
    INITIALIZATION
-========================= */
+----------------------------- */
 
-createParticles();
+updateDisplay();
 
-updateWave("xray");
+updateHistory();
 
-generateRawData("xray");
+
+/*
+   Do not automatically request
+   camera permission on page load.
+   The user starts it manually.
+*/
 
 </script>
 
