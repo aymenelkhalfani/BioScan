@@ -4,351 +4,325 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BioScan | Biomedical Engineering</title>
+<title>BioScan | Medical Imaging Explorer</title>
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#070b10;
-    color:#fff;
-    line-height:1.6;
+body {
+    font-family: Arial, sans-serif;
+    background: #080d12;
+    color: #ffffff;
+    line-height: 1.6;
 }
 
 /* NAVBAR */
 
-nav{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    padding:18px 7%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:rgba(7,11,16,.85);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid #1d2933;
-    z-index:1000;
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 7%;
+    background: rgba(8,13,18,0.94);
+    border-bottom: 1px solid #1e2a33;
 }
 
-.logo{
-    color:#62e6c5;
-    font-weight:bold;
-    letter-spacing:3px;
+.logo {
+    color: #62e6c5;
+    font-weight: bold;
+    letter-spacing: 3px;
 }
 
-nav a{
-    color:#aab4bd;
-    text-decoration:none;
-    margin-left:20px;
-    font-size:14px;
+nav a {
+    color: #aeb8c0;
+    text-decoration: none;
+    margin-left: 18px;
+    font-size: 13px;
 }
 
-nav a:hover{
-    color:#62e6c5;
+nav a:hover {
+    color: #62e6c5;
 }
 
 /* HERO */
 
-.hero{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:100px 25px;
+.hero {
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 70px 20px;
     background:
-    radial-gradient(circle at 50% 40%,#123942 0%,#070b10 55%);
+        radial-gradient(circle at center, #163d46 0%, #080d12 58%);
 }
 
-.hero-content{
-    max-width:800px;
+.hero-content {
+    max-width: 800px;
 }
 
-.tag{
-    color:#62e6c5;
-    letter-spacing:5px;
-    font-size:13px;
-    margin-bottom:20px;
+.tag {
+    color: #62e6c5;
+    font-size: 12px;
+    letter-spacing: 4px;
+    margin-bottom: 18px;
 }
 
-.hero h1{
-    font-size:clamp(55px,14vw,110px);
-    letter-spacing:-5px;
+.hero h1 {
+    font-size: clamp(55px, 15vw, 110px);
+    letter-spacing: -5px;
 }
 
-.hero h2{
-    font-size:clamp(22px,5vw,38px);
-    font-weight:normal;
-    color:#d8e0e5;
+.hero h2 {
+    font-size: clamp(22px, 5vw, 38px);
+    font-weight: normal;
+    color: #d9e1e6;
 }
 
-.hero p{
-    max-width:650px;
-    margin:25px auto;
-    color:#9da9b3;
+.hero p {
+    max-width: 650px;
+    margin: 25px auto;
+    color: #9da8b1;
 }
 
-.btn{
-    display:inline-block;
-    margin-top:20px;
-    padding:14px 30px;
-    border:1px solid #62e6c5;
-    border-radius:30px;
-    color:#62e6c5;
-    text-decoration:none;
-    transition:.3s;
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 13px 27px;
+    border: 1px solid #62e6c5;
+    border-radius: 30px;
+    color: #62e6c5;
+    text-decoration: none;
 }
 
-.btn:hover{
-    background:#62e6c5;
-    color:#071014;
+.btn:hover {
+    background: #62e6c5;
+    color: #081014;
 }
 
 /* SECTIONS */
 
-section{
-    max-width:1100px;
-    margin:auto;
-    padding:100px 25px;
+section {
+    max-width: 1100px;
+    margin: auto;
+    padding: 85px 22px;
 }
 
-.section-label{
-    color:#62e6c5;
-    letter-spacing:3px;
-    font-size:12px;
-    margin-bottom:10px;
+.label {
+    color: #62e6c5;
+    letter-spacing: 3px;
+    font-size: 12px;
+    margin-bottom: 8px;
 }
 
-.section-title{
-    font-size:38px;
-    margin-bottom:15px;
+.title {
+    font-size: 36px;
+    margin-bottom: 12px;
 }
 
-.section-text{
-    max-width:700px;
-    color:#9da9b3;
-    margin-bottom:45px;
+.description {
+    color: #98a4ad;
+    max-width: 700px;
+    margin-bottom: 40px;
 }
 
-/* CARDS */
+/* MODALITY CARDS */
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-.card{
-    background:#0e151c;
-    border:1px solid #202d37;
-    padding:30px;
-    border-radius:18px;
-    transition:.3s;
+.card {
+    background: #0e151c;
+    border: 1px solid #202d36;
+    border-radius: 18px;
+    padding: 28px;
+    transition: 0.3s;
 }
 
-.card:hover{
-    transform:translateY(-6px);
-    border-color:#62e6c5;
+.card:hover {
+    transform: translateY(-6px);
+    border-color: #62e6c5;
 }
 
-.card-icon{
-    font-size:35px;
-    margin-bottom:20px;
+.icon {
+    font-size: 40px;
+    margin-bottom: 18px;
 }
 
-.card h3{
-    color:#62e6c5;
-    margin-bottom:10px;
+.card h3 {
+    color: #62e6c5;
+    margin-bottom: 10px;
 }
 
-.card p{
-    color:#929da7;
-    font-size:15px;
+.card p {
+    color: #929da6;
+    font-size: 14px;
 }
 
-/* VITAL MONITOR */
-
-.monitor{
-    background:#0e151c;
-    border:1px solid #202d37;
-    border-radius:20px;
-    padding:30px;
-    text-align:center;
+.badge {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    background: #16242b;
+    color: #62e6c5;
+    font-size: 11px;
 }
 
-.heart{
-    font-size:65px;
-    animation:heartbeat 1s infinite;
+/* COMPARISON */
+
+.table-container {
+    overflow-x: auto;
 }
 
-@keyframes heartbeat{
-
-    0%{
-        transform:scale(1);
-    }
-
-    15%{
-        transform:scale(1.15);
-    }
-
-    30%{
-        transform:scale(1);
-    }
-
-    45%{
-        transform:scale(1.12);
-    }
-
-    60%{
-        transform:scale(1);
-    }
-
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+    background: #0e151c;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
-.bpm{
-    font-size:55px;
-    color:#62e6c5;
-    font-weight:bold;
+th,
+td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #202d36;
 }
 
-.bpm-label{
-    color:#88939d;
+th {
+    color: #62e6c5;
+    background: #111b22;
 }
 
-.monitor button{
-    margin-top:25px;
-    padding:12px 25px;
-    border:none;
-    border-radius:25px;
-    background:#62e6c5;
-    color:#071014;
-    font-weight:bold;
-    cursor:pointer;
+td {
+    color: #aeb8c0;
 }
 
-/* DATA */
+/* QUIZ */
 
-.data-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
+.quiz {
+    background: #0e151c;
+    border: 1px solid #202d36;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
 }
 
-.data{
-    padding:25px;
-    background:#0e151c;
-    border:1px solid #202d37;
-    border-radius:15px;
+.question {
+    font-size: 20px;
+    margin-bottom: 25px;
 }
 
-.data small{
-    color:#78848e;
+.quiz-image {
+    width: 100%;
+    max-width: 420px;
+    height: 220px;
+    margin: 0 auto 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111b22;
+    border: 1px solid #293740;
+    font-size: 60px;
 }
 
-.data strong{
-    display:block;
-    margin-top:8px;
-    font-size:28px;
-    color:#62e6c5;
+.options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 500px;
+    margin: auto;
 }
 
-/* TIMELINE */
-
-.timeline{
-    border-left:2px solid #62e6c5;
-    padding-left:25px;
+.option {
+    padding: 13px;
+    border: 1px solid #35434c;
+    background: #101820;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-.step{
-    margin-bottom:30px;
+.option:hover {
+    border-color: #62e6c5;
 }
 
-.step h3{
-    color:#62e6c5;
-}
-
-.step p{
-    color:#909ba5;
-}
-
-/* ABOUT */
-
-.about-box{
-    background:linear-gradient(135deg,#101c23,#0b1117);
-    border:1px solid #26343e;
-    padding:35px;
-    border-radius:20px;
+.result {
+    margin-top: 20px;
+    font-weight: bold;
+    min-height: 25px;
 }
 
 /* FOOTER */
 
-footer{
-    text-align:center;
-    padding:40px 20px;
-    border-top:1px solid #202a32;
-    color:#68737d;
-    font-size:14px;
+footer {
+    text-align: center;
+    padding: 35px 20px;
+    border-top: 1px solid #202a32;
+    color: #69757e;
+    font-size: 13px;
 }
 
 /* MOBILE */
 
-@media(max-width:600px){
+@media (max-width: 650px) {
 
-    nav{
-        padding:15px 20px;
+    nav {
+        padding: 14px 20px;
     }
 
-    nav div:last-child{
-        display:none;
+    nav div:last-child {
+        display: none;
     }
 
-    .hero h1{
-        letter-spacing:-3px;
+    section {
+        padding: 65px 18px;
     }
 
-    section{
-        padding:75px 20px;
+    .title {
+        font-size: 29px;
     }
 
-    .section-title{
-        font-size:30px;
+    .options {
+        grid-template-columns: 1fr;
     }
 
+    .hero h1 {
+        letter-spacing: -3px;
+    }
 }
-
 </style>
 </head>
 
 <body>
 
-
 <!-- NAVIGATION -->
 
 <nav>
-
-    <div class="logo">
-        BIOSCAN
-    </div>
+    <div class="logo">BIOSCAN</div>
 
     <div>
-        <a href="#about">About</a>
-        <a href="#technology">Technology</a>
-        <a href="#monitor">Monitor</a>
-        <a href="#project">Project</a>
+        <a href="#modalities">Modalities</a>
+        <a href="#comparison">Compare</a>
+        <a href="#quiz">Quiz</a>
     </div>
-
 </nav>
 
 
@@ -364,18 +338,16 @@ footer{
 
         <h1>BioScan</h1>
 
-        <h2>
-            Technology × Medicine
-        </h2>
+        <h2>Medical Imaging Explorer</h2>
 
         <p>
-            A personal biomedical engineering project exploring
-            medical technology, physiological data and digital
-            healthcare.
+            Discover how X-Ray, CT, MRI and Ultrasound
+            create images that help healthcare professionals
+            understand the human body.
         </p>
 
-        <a href="#about" class="btn">
-            Explore BioScan
+        <a href="#modalities" class="btn">
+            Explore Modalities
         </a>
 
     </div>
@@ -383,378 +355,257 @@ footer{
 </header>
 
 
+<!-- MODALITIES -->
+
+<section id="modalities">
+
+    <div class="label">
+        01 — MODALITIES
+    </div>
+
+    <h2 class="title">
+        Four Technologies
+    </h2>
+
+    <p class="description">
+        Each medical imaging modality uses a different
+        physical principle to produce information about
+        the human body.
+    </p>
+
+
+    <div class="cards">
+
+        <!-- X-RAY -->
+
+        <div class="card">
+
+            <div class="icon">🩻</div>
+
+            <h3>X-Ray</h3>
+
+            <p>
+                X-Ray imaging uses ionizing radiation to
+                produce images of internal structures.
+                It is commonly used for bones and chest imaging.
+            </p>
+
+            <span class="badge">
+                Ionizing Radiation
+            </span>
+
+        </div>
+
+
+        <!-- CT -->
+
+        <div class="card">
+
+            <div class="icon">🧠</div>
+
+            <h3>CT Scan</h3>
+
+            <p>
+                Computed Tomography combines multiple
+                X-Ray measurements to create detailed
+                cross-sectional images.
+            </p>
+
+            <span class="badge">
+                X-Ray + Computing
+            </span>
+
+        </div>
+
+
+        <!-- MRI -->
+
+        <div class="card">
+
+            <div class="icon">🧲</div>
+
+            <h3>MRI</h3>
+
+            <p>
+                Magnetic Resonance Imaging uses a strong
+                magnetic field and radio waves to create
+                detailed images of soft tissues.
+            </p>
+
+            <span class="badge">
+                Magnetic Field
+            </span>
+
+        </div>
+
+
+        <!-- ULTRASOUND -->
+
+        <div class="card">
+
+            <div class="icon">🩺</div>
+
+            <h3>Ultrasound</h3>
+
+            <p>
+                Ultrasound uses high-frequency sound waves
+                to create real-time images of structures
+                inside the body.
+            </p>
+
+            <span class="badge">
+                Sound Waves
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- COMPARISON -->
+
+<section id="comparison">
+
+    <div class="label">
+        02 — COMPARISON
+    </div>
+
+    <h2 class="title">
+        Compare the Modalities
+    </h2>
+
+    <p class="description">
+        A simplified educational comparison of the
+        four imaging technologies.
+    </p>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <tr>
+                <th>Technology</th>
+                <th>Principle</th>
+                <th>Radiation</th>
+                <th>Main Strength</th>
+            </tr>
+
+            <tr>
+                <td>X-Ray</td>
+                <td>X-Rays</td>
+                <td>Yes</td>
+                <td>Bones / Chest</td>
+            </tr>
+
+            <tr>
+                <td>CT</td>
+                <td>X-Rays + Computing</td>
+                <td>Yes</td>
+                <td>Cross-sectional detail</td>
+            </tr>
+
+            <tr>
+                <td>MRI</td>
+                <td>Magnetic field + RF</td>
+                <td>No ionizing radiation</td>
+                <td>Soft tissues</td>
+            </tr>
+
+            <tr>
+                <td>Ultrasound</td>
+                <td>Sound waves</td>
+                <td>No ionizing radiation</td>
+                <td>Real-time imaging</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section id="quiz">
+
+    <div class="label">
+        03 — INTERACTIVE QUIZ
+    </div>
+
+    <h2 class="title">
+        Guess the Modality
+    </h2>
+
+    <p class="description">
+        Test your knowledge of medical imaging.
+    </p>
+
+
+    <div class="quiz">
+
+        <div class="question">
+            Which modality uses a strong magnetic field
+            and radio waves?
+        </div>
+
+        <div class="quiz-image">
+            🧲
+        </div>
+
+
+        <div class="options">
+
+            <button class="option" onclick="checkAnswer('X-Ray')">
+                X-Ray
+            </button>
+
+            <button class="option" onclick="checkAnswer('CT')">
+                CT
+            </button>
+
+            <button class="option" onclick="checkAnswer('MRI')">
+                MRI
+            </button>
+
+            <button class="option" onclick="checkAnswer('Ultrasound')">
+                Ultrasound
+            </button>
+
+        </div>
+
+        <div class="result" id="result"></div>
+
+    </div>
+
+</section>
+
+
 <!-- ABOUT -->
 
-<section id="about">
-
-    <div class="section-label">
-        01 — ABOUT
-    </div>
-
-    <h2 class="section-title">
-        What is BioScan?
-    </h2>
-
-    <p class="section-text">
-
-        BioScan is a personal educational project created to
-        explore the connection between engineering, medical
-        devices and healthcare.
-
-        The project demonstrates how a biomedical engineer can
-        combine programming, data and medical concepts.
-
-    </p>
-
-
-    <div class="cards">
-
-        <div class="card">
-
-            <div class="card-icon">
-                🫀
-            </div>
-
-            <h3>
-                Physiology
-            </h3>
-
-            <p>
-                Exploring basic physiological parameters such
-                as heart rate and their representation as data.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">
-                🩺
-            </div>
-
-            <h3>
-                Medical Devices
-            </h3>
-
-            <p>
-                Discovering the technology behind equipment
-                used in modern healthcare.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">
-                💻
-            </div>
-
-            <h3>
-                Programming
-            </h3>
-
-            <p>
-                Using web technologies to create an interactive
-                biomedical engineering demonstration.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- TECHNOLOGY -->
-
-<section id="technology">
-
-    <div class="section-label">
-        02 — TECHNOLOGY
-    </div>
-
-    <h2 class="section-title">
-        Inside BioScan
-    </h2>
-
-    <p class="section-text">
-        The project combines simple software concepts with
-        biomedical engineering ideas.
-    </p>
-
-
-    <div class="cards">
-
-        <div class="card">
-
-            <h3>
-                HTML
-            </h3>
-
-            <p>
-                Defines the structure and information presented
-                by the BioScan interface.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                CSS
-            </h3>
-
-            <p>
-                Creates the responsive interface and visual
-                design of the project.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                JavaScript
-            </h3>
-
-            <p>
-                Adds interaction and allows the interface to
-                process simple simulated data.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- VITAL MONITOR -->
-
-<section id="monitor">
-
-    <div class="section-label">
-        03 — VITAL MONITOR
-    </div>
-
-    <h2 class="section-title">
-        Heart Rate Simulator
-    </h2>
-
-    <p class="section-text">
-
-        This educational simulation generates a changing
-        heart-rate value to demonstrate how physiological
-        data can be represented digitally.
-
-    </p>
-
-
-    <div class="monitor">
-
-        <div class="heart">
-            ❤️
-        </div>
-
-        <div class="bpm" id="bpm">
-            72
-        </div>
-
-        <div class="bpm-label">
-            BPM — beats per minute
-        </div>
-
-        <button onclick="generateHeartRate()">
-            Generate New Reading
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- DATA -->
-
 <section>
 
-    <div class="section-label">
-        04 — DATA
+    <div class="label">
+        04 — PROJECT
     </div>
 
-    <h2 class="section-title">
-        Patient Parameters
+    <h2 class="title">
+        Why BioScan?
     </h2>
 
-    <p class="section-text">
-        Example values used only for educational demonstration.
+    <p class="description">
+
+        BioScan was created as a biomedical engineering
+        learning project to explore medical imaging
+        technologies through an interactive web interface.
+
+        The project combines biomedical concepts with
+        web development and user interaction.
+
     </p>
-
-
-    <div class="data-grid">
-
-        <div class="data">
-
-            <small>
-                Heart Rate
-            </small>
-
-            <strong id="heartData">
-                72 BPM
-            </strong>
-
-        </div>
-
-
-        <div class="data">
-
-            <small>
-                SpO₂
-            </small>
-
-            <strong>
-                98%
-            </strong>
-
-        </div>
-
-
-        <div class="data">
-
-            <small>
-                Temperature
-            </small>
-
-            <strong>
-                36.7°C
-            </strong>
-
-        </div>
-
-
-        <div class="data">
-
-            <small>
-                Status
-            </small>
-
-            <strong>
-                Normal
-            </strong>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- PROJECT PROCESS -->
-
-<section id="project">
-
-    <div class="section-label">
-        05 — DEVELOPMENT
-    </div>
-
-    <h2 class="section-title">
-        How BioScan Works
-    </h2>
-
-    <p class="section-text">
-        The project follows a simple engineering workflow.
-    </p>
-
-
-    <div class="timeline">
-
-        <div class="step">
-
-            <h3>
-                01 — Data
-            </h3>
-
-            <p>
-                A physiological parameter is represented as
-                digital data.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <h3>
-                02 — Processing
-            </h3>
-
-            <p>
-                The value can be processed and displayed
-                using software.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <h3>
-                03 — Visualization
-            </h3>
-
-            <p>
-                The information is transformed into an
-                understandable interface.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <h3>
-                04 — Healthcare
-            </h3>
-
-            <p>
-                Biomedical engineers can use technology to
-                support monitoring and healthcare systems.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FUTURE -->
-
-<section>
-
-    <div class="section-label">
-        06 — FUTURE
-    </div>
-
-    <h2 class="section-title">
-        Future Development
-    </h2>
-
-    <div class="about-box">
-
-        <p>
-
-            Future versions of BioScan could explore real
-            sensor data, databases, graphical dashboards,
-            IoT devices and machine-learning approaches
-            for biomedical applications.
-
-        </p>
-
-    </div>
 
 </section>
 
@@ -763,34 +614,40 @@ footer{
 
 <footer>
 
-    <p>
-        BioScan © 2026
-    </p>
+    BioScan © 2026
 
-    <p>
-        Biomedical Engineering Student Project
-    </p>
+    <br>
+
+    Biomedical Engineering Student Project
 
 </footer>
 
 
 <script>
 
-function generateHeartRate(){
+function checkAnswer(answer) {
 
-    const bpm =
-        Math.floor(Math.random() * 41) + 60;
+    const result = document.getElementById("result");
 
-    document.getElementById("bpm").textContent =
-        bpm;
+    if (answer === "MRI") {
 
-    document.getElementById("heartData").textContent =
-        bpm + " BPM";
+        result.textContent =
+            "✓ Correct! MRI uses magnetic fields and radio waves.";
+
+        result.style.color = "#62e6c5";
+
+    } else {
+
+        result.textContent =
+            "✕ Not quite. Try again!";
+
+        result.style.color = "#ff8a8a";
+
+    }
 
 }
 
 </script>
-
 
 </body>
 </html>
