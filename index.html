@@ -1,41 +1,224 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biomedical Innovation</title>
-    <link rel="stylesheet" href="style.css">
+
+    <title>BioScan | Biomedical Engineering</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0f14;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            background:
+                radial-gradient(circle at center, #183b45 0%, #0b0f14 55%);
+        }
+
+        .logo {
+            font-size: 18px;
+            letter-spacing: 5px;
+            color: #62e6c5;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(45px, 12vw, 90px);
+            letter-spacing: -3px;
+        }
+
+        .subtitle {
+            max-width: 600px;
+            color: #aeb8c2;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 14px 28px;
+            border: 1px solid #62e6c5;
+            border-radius: 30px;
+            color: #62e6c5;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: #62e6c5;
+            color: #0b0f14;
+        }
+
+        section {
+            max-width: 1000px;
+            margin: auto;
+            padding: 90px 25px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .section-text {
+            color: #9da8b3;
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            padding: 30px;
+            background: #111820;
+            border: 1px solid #26313b;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #62e6c5;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            color: #62e6c5;
+        }
+
+        .card p {
+            color: #9da8b3;
+            font-size: 15px;
+        }
+
+        .status {
+            margin-top: 50px;
+            padding: 25px;
+            border-radius: 15px;
+            background: #111820;
+            border: 1px solid #26313b;
+        }
+
+        .status span {
+            color: #62e6c5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #202830;
+            color: #68737d;
+            font-size: 14px;
+        }
+    </style>
 </head>
+
 <body>
 
     <header>
-        <h1>Biomedical Innovation</h1>
-        <p>Technology × Medicine</p>
+        <div class="logo">BIOMEDICAL ENGINEERING</div>
+
+        <h1>BioScan</h1>
+
+        <p class="subtitle">
+            Exploring the intersection between medical technology,
+            engineering and the future of healthcare.
+        </p>
+
+        <a href="#project" class="button">
+            Explore Project
+        </a>
     </header>
 
-    <main>
-        <section class="hero">
-            <h2>Exploring the Future of Healthcare</h2>
-            <p>
-                A small biomedical engineering project created
-                to explore the connection between technology and medicine.
-            </p>
 
-            <button>Discover the Project</button>
-        </section>
+    <section id="project">
 
-        <section class="about">
-            <h2>About the Project</h2>
-            <p>
-                This project explores how digital technologies can
-                contribute to modern healthcare and medical devices.
-            </p>
-        </section>
-    </main>
+        <h2 class="section-title">
+            What is BioScan?
+        </h2>
+
+        <p class="section-text">
+            BioScan is a personal biomedical engineering project
+            designed to explore how technology can help understand
+            and improve modern healthcare.
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Medical Devices</h3>
+                <p>
+                    Understanding the technologies behind modern
+                    medical equipment and diagnostic systems.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Data</h3>
+                <p>
+                    Exploring how biomedical data can be collected,
+                    processed and interpreted.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Innovation</h3>
+                <p>
+                    Discovering new technological approaches
+                    that can contribute to healthcare.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="status">
+            <strong>Project status:</strong>
+            <span> In development</span>
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <h2 class="section-title">
+            Why BioScan?
+        </h2>
+
+        <p class="section-text">
+            As a biomedical engineering student, I created BioScan
+            as a small personal project to learn, experiment and
+            connect engineering concepts with real medical applications.
+        </p>
+
+    </section>
+
 
     <footer>
-        <p>Biomedical Engineering Student • 2026</p>
+        BioScan © 2026 · Biomedical Engineering Project
     </footer>
 
 </body>
