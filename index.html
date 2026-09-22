@@ -1,225 +1,796 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>BioScan | Biomedical Engineering</title>
+<title>BioScan | Biomedical Engineering</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #0b0f14;
-            color: #ffffff;
-            line-height: 1.6;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        header {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-            background:
-                radial-gradient(circle at center, #183b45 0%, #0b0f14 55%);
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        .logo {
-            font-size: 18px;
-            letter-spacing: 5px;
-            color: #62e6c5;
-            margin-bottom: 25px;
-        }
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#070b10;
+    color:#fff;
+    line-height:1.6;
+}
 
-        h1 {
-            font-size: clamp(45px, 12vw, 90px);
-            letter-spacing: -3px;
-        }
+/* NAVBAR */
 
-        .subtitle {
-            max-width: 600px;
-            color: #aeb8c2;
-            font-size: 18px;
-            margin-top: 20px;
-        }
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(7,11,16,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid #1d2933;
+    z-index:1000;
+}
 
-        .button {
-            display: inline-block;
-            margin-top: 35px;
-            padding: 14px 28px;
-            border: 1px solid #62e6c5;
-            border-radius: 30px;
-            color: #62e6c5;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+.logo{
+    color:#62e6c5;
+    font-weight:bold;
+    letter-spacing:3px;
+}
 
-        .button:hover {
-            background: #62e6c5;
-            color: #0b0f14;
-        }
+nav a{
+    color:#aab4bd;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:14px;
+}
 
-        section {
-            max-width: 1000px;
-            margin: auto;
-            padding: 90px 25px;
-        }
+nav a:hover{
+    color:#62e6c5;
+}
 
-        .section-title {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
+/* HERO */
 
-        .section-text {
-            color: #9da8b3;
-            max-width: 700px;
-            margin-bottom: 40px;
-        }
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:100px 25px;
+    background:
+    radial-gradient(circle at 50% 40%,#123942 0%,#070b10 55%);
+}
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
+.hero-content{
+    max-width:800px;
+}
 
-        .card {
-            padding: 30px;
-            background: #111820;
-            border: 1px solid #26313b;
-            border-radius: 15px;
-            transition: 0.3s;
-        }
+.tag{
+    color:#62e6c5;
+    letter-spacing:5px;
+    font-size:13px;
+    margin-bottom:20px;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #62e6c5;
-        }
+.hero h1{
+    font-size:clamp(55px,14vw,110px);
+    letter-spacing:-5px;
+}
 
-        .card h3 {
-            margin-bottom: 12px;
-            color: #62e6c5;
-        }
+.hero h2{
+    font-size:clamp(22px,5vw,38px);
+    font-weight:normal;
+    color:#d8e0e5;
+}
 
-        .card p {
-            color: #9da8b3;
-            font-size: 15px;
-        }
+.hero p{
+    max-width:650px;
+    margin:25px auto;
+    color:#9da9b3;
+}
 
-        .status {
-            margin-top: 50px;
-            padding: 25px;
-            border-radius: 15px;
-            background: #111820;
-            border: 1px solid #26313b;
-        }
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:14px 30px;
+    border:1px solid #62e6c5;
+    border-radius:30px;
+    color:#62e6c5;
+    text-decoration:none;
+    transition:.3s;
+}
 
-        .status span {
-            color: #62e6c5;
-        }
+.btn:hover{
+    background:#62e6c5;
+    color:#071014;
+}
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            border-top: 1px solid #202830;
-            color: #68737d;
-            font-size: 14px;
-        }
-    </style>
+/* SECTIONS */
+
+section{
+    max-width:1100px;
+    margin:auto;
+    padding:100px 25px;
+}
+
+.section-label{
+    color:#62e6c5;
+    letter-spacing:3px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.section-title{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.section-text{
+    max-width:700px;
+    color:#9da9b3;
+    margin-bottom:45px;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#0e151c;
+    border:1px solid #202d37;
+    padding:30px;
+    border-radius:18px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:#62e6c5;
+}
+
+.card-icon{
+    font-size:35px;
+    margin-bottom:20px;
+}
+
+.card h3{
+    color:#62e6c5;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#929da7;
+    font-size:15px;
+}
+
+/* VITAL MONITOR */
+
+.monitor{
+    background:#0e151c;
+    border:1px solid #202d37;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+}
+
+.heart{
+    font-size:65px;
+    animation:heartbeat 1s infinite;
+}
+
+@keyframes heartbeat{
+
+    0%{
+        transform:scale(1);
+    }
+
+    15%{
+        transform:scale(1.15);
+    }
+
+    30%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.12);
+    }
+
+    60%{
+        transform:scale(1);
+    }
+
+}
+
+.bpm{
+    font-size:55px;
+    color:#62e6c5;
+    font-weight:bold;
+}
+
+.bpm-label{
+    color:#88939d;
+}
+
+.monitor button{
+    margin-top:25px;
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:#62e6c5;
+    color:#071014;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* DATA */
+
+.data-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.data{
+    padding:25px;
+    background:#0e151c;
+    border:1px solid #202d37;
+    border-radius:15px;
+}
+
+.data small{
+    color:#78848e;
+}
+
+.data strong{
+    display:block;
+    margin-top:8px;
+    font-size:28px;
+    color:#62e6c5;
+}
+
+/* TIMELINE */
+
+.timeline{
+    border-left:2px solid #62e6c5;
+    padding-left:25px;
+}
+
+.step{
+    margin-bottom:30px;
+}
+
+.step h3{
+    color:#62e6c5;
+}
+
+.step p{
+    color:#909ba5;
+}
+
+/* ABOUT */
+
+.about-box{
+    background:linear-gradient(135deg,#101c23,#0b1117);
+    border:1px solid #26343e;
+    padding:35px;
+    border-radius:20px;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:40px 20px;
+    border-top:1px solid #202a32;
+    color:#68737d;
+    font-size:14px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    nav{
+        padding:15px 20px;
+    }
+
+    nav div:last-child{
+        display:none;
+    }
+
+    .hero h1{
+        letter-spacing:-3px;
+    }
+
+    section{
+        padding:75px 20px;
+    }
+
+    .section-title{
+        font-size:30px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-    <header>
-        <div class="logo">BIOMEDICAL ENGINEERING</div>
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <div class="logo">
+        BIOSCAN
+    </div>
+
+    <div>
+        <a href="#about">About</a>
+        <a href="#technology">Technology</a>
+        <a href="#monitor">Monitor</a>
+        <a href="#project">Project</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+    <div class="hero-content">
+
+        <div class="tag">
+            BIOMEDICAL ENGINEERING
+        </div>
 
         <h1>BioScan</h1>
 
-        <p class="subtitle">
-            Exploring the intersection between medical technology,
-            engineering and the future of healthcare.
+        <h2>
+            Technology × Medicine
+        </h2>
+
+        <p>
+            A personal biomedical engineering project exploring
+            medical technology, physiological data and digital
+            healthcare.
         </p>
 
-        <a href="#project" class="button">
-            Explore Project
+        <a href="#about" class="btn">
+            Explore BioScan
         </a>
-    </header>
+
+    </div>
+
+</header>
 
 
-    <section id="project">
+<!-- ABOUT -->
 
-        <h2 class="section-title">
-            What is BioScan?
-        </h2>
+<section id="about">
 
-        <p class="section-text">
-            BioScan is a personal biomedical engineering project
-            designed to explore how technology can help understand
-            and improve modern healthcare.
-        </p>
+    <div class="section-label">
+        01 — ABOUT
+    </div>
 
-        <div class="cards">
+    <h2 class="section-title">
+        What is BioScan?
+    </h2>
 
-            <div class="card">
-                <h3>Medical Devices</h3>
-                <p>
-                    Understanding the technologies behind modern
-                    medical equipment and diagnostic systems.
-                </p>
+    <p class="section-text">
+
+        BioScan is a personal educational project created to
+        explore the connection between engineering, medical
+        devices and healthcare.
+
+        The project demonstrates how a biomedical engineer can
+        combine programming, data and medical concepts.
+
+    </p>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-icon">
+                🫀
             </div>
 
-            <div class="card">
-                <h3>Data</h3>
-                <p>
-                    Exploring how biomedical data can be collected,
-                    processed and interpreted.
-                </p>
-            </div>
+            <h3>
+                Physiology
+            </h3>
 
-            <div class="card">
-                <h3>Innovation</h3>
-                <p>
-                    Discovering new technological approaches
-                    that can contribute to healthcare.
-                </p>
-            </div>
+            <p>
+                Exploring basic physiological parameters such
+                as heart rate and their representation as data.
+            </p>
 
         </div>
 
 
-        <div class="status">
-            <strong>Project status:</strong>
-            <span> In development</span>
+        <div class="card">
+
+            <div class="card-icon">
+                🩺
+            </div>
+
+            <h3>
+                Medical Devices
+            </h3>
+
+            <p>
+                Discovering the technology behind equipment
+                used in modern healthcare.
+            </p>
+
         </div>
 
-    </section>
+
+        <div class="card">
+
+            <div class="card-icon">
+                💻
+            </div>
+
+            <h3>
+                Programming
+            </h3>
+
+            <p>
+                Using web technologies to create an interactive
+                biomedical engineering demonstration.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-    <section>
+<!-- TECHNOLOGY -->
 
-        <h2 class="section-title">
-            Why BioScan?
-        </h2>
+<section id="technology">
 
-        <p class="section-text">
-            As a biomedical engineering student, I created BioScan
-            as a small personal project to learn, experiment and
-            connect engineering concepts with real medical applications.
+    <div class="section-label">
+        02 — TECHNOLOGY
+    </div>
+
+    <h2 class="section-title">
+        Inside BioScan
+    </h2>
+
+    <p class="section-text">
+        The project combines simple software concepts with
+        biomedical engineering ideas.
+    </p>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>
+                HTML
+            </h3>
+
+            <p>
+                Defines the structure and information presented
+                by the BioScan interface.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                CSS
+            </h3>
+
+            <p>
+                Creates the responsive interface and visual
+                design of the project.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                JavaScript
+            </h3>
+
+            <p>
+                Adds interaction and allows the interface to
+                process simple simulated data.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VITAL MONITOR -->
+
+<section id="monitor">
+
+    <div class="section-label">
+        03 — VITAL MONITOR
+    </div>
+
+    <h2 class="section-title">
+        Heart Rate Simulator
+    </h2>
+
+    <p class="section-text">
+
+        This educational simulation generates a changing
+        heart-rate value to demonstrate how physiological
+        data can be represented digitally.
+
+    </p>
+
+
+    <div class="monitor">
+
+        <div class="heart">
+            ❤️
+        </div>
+
+        <div class="bpm" id="bpm">
+            72
+        </div>
+
+        <div class="bpm-label">
+            BPM — beats per minute
+        </div>
+
+        <button onclick="generateHeartRate()">
+            Generate New Reading
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- DATA -->
+
+<section>
+
+    <div class="section-label">
+        04 — DATA
+    </div>
+
+    <h2 class="section-title">
+        Patient Parameters
+    </h2>
+
+    <p class="section-text">
+        Example values used only for educational demonstration.
+    </p>
+
+
+    <div class="data-grid">
+
+        <div class="data">
+
+            <small>
+                Heart Rate
+            </small>
+
+            <strong id="heartData">
+                72 BPM
+            </strong>
+
+        </div>
+
+
+        <div class="data">
+
+            <small>
+                SpO₂
+            </small>
+
+            <strong>
+                98%
+            </strong>
+
+        </div>
+
+
+        <div class="data">
+
+            <small>
+                Temperature
+            </small>
+
+            <strong>
+                36.7°C
+            </strong>
+
+        </div>
+
+
+        <div class="data">
+
+            <small>
+                Status
+            </small>
+
+            <strong>
+                Normal
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROJECT PROCESS -->
+
+<section id="project">
+
+    <div class="section-label">
+        05 — DEVELOPMENT
+    </div>
+
+    <h2 class="section-title">
+        How BioScan Works
+    </h2>
+
+    <p class="section-text">
+        The project follows a simple engineering workflow.
+    </p>
+
+
+    <div class="timeline">
+
+        <div class="step">
+
+            <h3>
+                01 — Data
+            </h3>
+
+            <p>
+                A physiological parameter is represented as
+                digital data.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <h3>
+                02 — Processing
+            </h3>
+
+            <p>
+                The value can be processed and displayed
+                using software.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <h3>
+                03 — Visualization
+            </h3>
+
+            <p>
+                The information is transformed into an
+                understandable interface.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <h3>
+                04 — Healthcare
+            </h3>
+
+            <p>
+                Biomedical engineers can use technology to
+                support monitoring and healthcare systems.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FUTURE -->
+
+<section>
+
+    <div class="section-label">
+        06 — FUTURE
+    </div>
+
+    <h2 class="section-title">
+        Future Development
+    </h2>
+
+    <div class="about-box">
+
+        <p>
+
+            Future versions of BioScan could explore real
+            sensor data, databases, graphical dashboards,
+            IoT devices and machine-learning approaches
+            for biomedical applications.
+
         </p>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <footer>
-        BioScan © 2026 · Biomedical Engineering Project
-    </footer>
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        BioScan © 2026
+    </p>
+
+    <p>
+        Biomedical Engineering Student Project
+    </p>
+
+</footer>
+
+
+<script>
+
+function generateHeartRate(){
+
+    const bpm =
+        Math.floor(Math.random() * 41) + 60;
+
+    document.getElementById("bpm").textContent =
+        bpm;
+
+    document.getElementById("heartData").textContent =
+        bpm + " BPM";
+
+}
+
+</script>
+
 
 </body>
 </html>
